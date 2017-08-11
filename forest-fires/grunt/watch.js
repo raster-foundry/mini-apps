@@ -11,5 +11,5 @@ module.exports = {
         options: {
             spawn: false
         }
-	  }
+    }
 };

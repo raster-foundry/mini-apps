@@ -5,11 +5,11 @@ module.exports = {
     dev: {
         files: {
             'app/assets/css/main.css': 'app/assets/sass/main.scss'
-		    }
-	  },
+        }
+    },
     dist: {
-			  files: {
+        files: {
             'dist/assets/css/main.css': 'app/assets/sass/main.scss'
-			  }
-		}
+        }
+    }
 };
