@@ -1,0 +1,31 @@
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html {
+	font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  color: $base;
+  font-size: 14px;
+  font-size: 1.4rem;
+  line-height: 1.8;
+  font-family: 'Open Sans', sans-serif;
+  background-color: $off-white;
+}
+
+span {
+  vertical-align: top;
+}
+
+img {
+  vertical-align: top;
+}
+
+svg {
+  vertical-align: top;
+}

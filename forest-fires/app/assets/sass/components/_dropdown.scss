@@ -1,0 +1,10 @@
+.dropdown {
+  position: relative;
+}
+
+.dropdown-container {
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+}

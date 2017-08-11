@@ -1,0 +1,27 @@
+.sidebar {
+  width: 40rem;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar--header {
+  background-color: $slate;
+  border-bottom: 1px solid $slate;
+  padding: 1.4rem 1rem;
+
+  .sidebar--title {
+    @extend .h3;
+    margin: 0;
+    color: #fff;
+  }
+}
+
+.sidebar--inner {
+  padding: 1.4rem 1rem;
+}
+
+.sidebar--inner {
+  flex: 1;
+  overflow: auto;
+}

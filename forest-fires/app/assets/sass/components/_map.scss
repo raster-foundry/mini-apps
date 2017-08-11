@@ -1,0 +1,30 @@
+.map {
+  position: relative;
+  flex: 1;
+  padding-top: 5.8rem;
+}
+
+.map-toolbar {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  width: 100%;
+  background-color: #fff;
+}
+
+.map-toolbar--section {
+  flex: 1;
+  padding: 10px;
+  display: flex;
+
+  select {
+    flex: 1;
+    margin: 0 5px;
+  }
+}
+
+.map-inner {
+  height: 100%;
+  width: 100%;
+  padding-top: 57px;
+}

@@ -1,0 +1,56 @@
+.main-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: $slate;
+  position: fixed;
+  left: 40rem;
+  right: 0;
+  padding: 0 1rem;
+  border-bottom: 1px solid $midnight;
+  z-index: 100;
+}
+
+a.nav-item,
+.nav-item > a {
+  &:hover,
+  &:focus {
+    opacity: .5;
+  }
+}
+
+.nav-section {
+  flex: 1;
+  display: flex;
+  align-self: center;
+  align-items: center;
+
+  &.primary {
+    order: 1;
+  }
+
+  &.secondary {
+    order: 3;
+    justify-content: flex-end;
+  }
+}
+
+.nav-item {
+  padding: 1.2rem;
+  margin: 0;
+
+  // removes margin on search form in nav 
+  .form-item {
+    margin: 0;
+  }
+}
+
+.presented-text {
+  color: #fff;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 400;
+  font-size: 1.1rem;
+  font-family: 'Titillium Web', sans-serif;
+}
