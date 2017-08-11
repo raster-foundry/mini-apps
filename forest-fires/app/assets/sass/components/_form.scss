@@ -41,6 +41,14 @@ select {
   background-position: right 1rem center;
 }
 
+input[type="range"] {
+  -webkit-appearance: none;
+  position: relative;
+  height: 4px;
+  padding: 0;
+  background-color: $midnight;
+}
+
 textarea {
   border-radius: 4px;
   height: auto;
@@ -48,6 +56,24 @@ textarea {
 
 .form-item {
   margin-bottom: 1rem;
+  position: relative;
+
+  &.range-slider {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    padding: 0 1rem;
+    border-radius: 4px;
+    background-color: $slate;
+
+    label {
+      margin-right: 1rem;
+    }
+
+    input[type="range"] {
+      flex: 1;
+    }
+  }
 }
 
 .form-container {
