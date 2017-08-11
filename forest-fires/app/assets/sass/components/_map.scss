@@ -2,6 +2,7 @@
   position: relative;
   flex: 1;
   padding-top: 5.8rem;
+  overflow: hidden;
 }
 
 .map-toolbar {
@@ -17,7 +18,8 @@
   padding: 10px;
   display: flex;
 
-  select {
+  select,
+  .form-item {
     flex: 1;
     margin: 0 5px;
   }
@@ -27,4 +29,95 @@
   height: 100%;
   width: 100%;
   padding-top: 57px;
+  position: relative;
+}
+
+.map-slider {
+  position: absolute;
+  top: 57px;
+  bottom: 0;
+  left: calc(50% - 15px);
+  z-index: 10;
+  cursor: grab;
+  width: 30px;
+
+  &:active,
+  &:focus {
+    cursor: grabbing;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 2px;
+    background: #fff;
+    margin-left: 15px;
+  }
+}
+
+.map-slider--grip {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 30px;
+  height: 50px;
+  background: #738ffc;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 10px 0 #465076, inset 0 0px 0px 1px rgb(108, 124, 185);
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    pointer-events: none;
+    user-select: none;
+  }
+}
+
+.map-legend {
+  position: absolute;
+  z-index: 1;
+  bottom: 2rem;
+  left: 2rem;
+  margin-top: 10px;
+  background: $midnight;
+  padding: 7px;
+  border-radius: 4px;
+  width: 250px;
+  box-shadow: 0 0 0 4px rgba(#fff, .4);
+  user-select: none;
+  z-index: 100;
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .legend-inner {
+    height: 2rem;
+    border-radius: 4px;
+    margin-top: 10px;
+    width: 100%;
+    background: linear-gradient(to right, #fae72f 0%,#25a185 35%,#375a8c 68%,#46085b 100%);
+    border: 2px solid $slate;
+    flex: none;
+  }
+
+  .label {
+    font-size: 1.3rem;
+    color: #fff;
+    flex: 1;
+
+    + .label {
+      text-align: right;
+    }
+  }
+}
+
+.ol-control button {
+  background-color: $slate !important;
 }

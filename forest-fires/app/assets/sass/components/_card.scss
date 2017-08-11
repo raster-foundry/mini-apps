@@ -5,6 +5,41 @@
   border-radius: 2px;
   border: 1px solid darken($off-white, 5%);
   cursor: pointer;
+  transition: .2s ease-in-out all;
+
+  .expand {
+    display: none;
+  }
+
+  &.active {
+    border-color: $purple;
+    background-color: #fff;
+
+    .expand {
+      display: block;
+    }
+  }
+
+  &:hover {
+
+    .active-icon {
+      opacity: 1;
+    }
+  }
+}
+
+.active-icon {
+  position: absolute;
+  top: 13px;
+  right: 20px;
+  opacity: 0;
+  transition: .2s ease-in-out opacity;
+  filter: grayscale(1);
+
+  .active & {
+    opacity: 1;
+    filter: grayscale(0);
+  }
 }
 
 .card--inner {

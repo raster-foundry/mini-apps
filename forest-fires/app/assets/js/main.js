@@ -48,7 +48,7 @@ var getToolRunTileNode = function(nodeId, toolRunId) {
 
     return new ol.layer.Tile({
         source: new ol.source.XYZ({url: url}),
-        opacity: 0.5
+        opacity: 0.7
     });
 };
 
@@ -146,8 +146,14 @@ $( document ).ready(function() {
     $activateComparisonBtn = $('#activate-comparison-layers');
     $activateExtentBtn = $('#activate-extent-layer');
 
+    $mapContainer = $('#map');
+    $mapOffset = $($mapContainer).offset().left;
+    $mapSlider = $('#map-slider');
+
     $beforeLayerSelect = $('#before-comparison-layer-select');
     $afterLayerSelect = $('#after-comparison-layer-select');
+
+    $thresholdControl = $('#threshold-control');
 
     /*
      * Show modal
@@ -200,6 +206,18 @@ $( document ).ready(function() {
         map.render();
     }, false);
 
+    $($mapSlider).bind('mousedown', function(e){
+
+        $($mapContainer).bind('mousemove', function(e){
+            var sliderPos = e.clientX - $mapOffset - 15;
+            $($mapSlider).css('left', sliderPos);
+        });
+
+        $($mapSlider).bind('mouseup',function(){
+            $($mapContainer).unbind('mousemove')
+        });
+    });
+
     /*
      * Extent vs Comparison
      */
@@ -210,6 +228,7 @@ $( document ).ready(function() {
         $($activateComparisonBtn).removeClass('active');
         $($beforeLayerSelect).addClass('hide');
         $($afterLayerSelect).addClass('hide');
+        $($thresholdControl).removeClass('hide');
 
         fireLayers.ndviDifference.setVisible(true);
 
@@ -227,6 +246,7 @@ $( document ).ready(function() {
         $($activateExtentBtn).removeClass('active');
         $($beforeLayerSelect).removeClass('hide');
         $($afterLayerSelect).removeClass('hide');
+        $($thresholdControl).addClass('hide');
 
         fireLayers.ndviDifference.setVisible(false);
 
