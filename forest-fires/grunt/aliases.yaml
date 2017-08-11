@@ -3,3 +3,9 @@ default:
   - 'postcss'
   - 'browserSync'
   - 'watch'
+
+build:
+  - 'clean:dist'
+  - 'sass:dist'
+  - 'postcss:dist'
+  - 'copy:dist'
