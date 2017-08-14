@@ -960,7 +960,7 @@ fresh@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.3.0.tgz#651f838e22424e7566de161d8358caa199f83d4f"
 
-fs-extra@3.0.1:
+fs-extra@3.0.1, fs-extra@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-3.0.1.tgz#3794f378c58b342ea7dbbb23095109c4b3b62291"
   dependencies:
@@ -1107,6 +1107,12 @@ grunt-browser-sync@^2.2.0:
   resolved "https://registry.yarnpkg.com/grunt-browser-sync/-/grunt-browser-sync-2.2.0.tgz#a0e9c1fd1ccb5c454c25ec5170113ffff06a4772"
   dependencies:
     browser-sync "^2.6.4"
+
+grunt-cache-bust@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/grunt-cache-bust/-/grunt-cache-bust-1.6.0.tgz#0dea4012ccedcca629b02e815995f383574ecf66"
+  dependencies:
+    fs-extra "^3.0.1"
 
 grunt-contrib-clean@^1.1.0:
   version "1.1.0"
