@@ -1,8 +1,8 @@
 // Common Settings
 
-var toolNdviBeforeNode = 'a1460c96-8377-4bf1-aad4-18a6e47093c6';
-var toolNdviAfterNode = '722519bc-3312-4c35-924b-9f1a155f83ec';
-var toolNdviDifferenceNode = '875f9059-2b87-49d4-8d2a-3ecc47d4b14d';
+var toolNdviBeforeNode = 'a4d3b166-7dda-4eb4-bfd1-d1d42400b15e';
+var toolNdviAfterNode = 'd0029397-e300-4c9a-af71-21ad3f2224ec';
+var toolNdviDifferenceNode = '01f88817-acd7-4bbd-93cb-6fdd253e9c83';
 
 var HERE_APP_CODE = '';
 var HERE_APP_ID = '';
@@ -20,18 +20,28 @@ var createMap = function() {
     });
 
     // Create latitude and longitude and convert them to default projection
-    var cacheCreek = ol.proj.transform([-121.34468078613281,
-                                        50.82285473543414],
+    var cacheCreek = ol.proj.transform([-121.3092, 50.8292],
                                        'EPSG:4326', 'EPSG:3857');
     // Create a View, set it center and zoom level
     var view = new ol.View({
         center: cacheCreek,
-        zoom: 11
+        zoom: 13
+    });
+
+    var mousePositionControl = new ol.control.MousePosition({
+        coordinateFormat: ol.coordinate.createStringXY(4),
+        projection: 'EPSG:4326',
+        // comment the following two lines to have the mouse position
+        // be placed within the map.
+        // className: 'custom-mouse-position',
+        // target: document.getElementById('mouse-position'),
+        undefinedHTML: '&nbsp;'
     });
 
     // Instanciate a Map, set the object target to the map DOM id
     var map = new ol.Map({
-        target: 'map'
+        target: 'map',
+        controls: ol.control.defaults().extend([mousePositionControl])
     });
     // Add the created layer to the Map
     map.addLayer(hereLayer);
@@ -41,14 +51,14 @@ var createMap = function() {
     return map;
 };
 
-var getToolRunTileNode = function(nodeId, toolRunId) {
+var getToolRunTileNode = function(nodeId, toolRunId, mapToken, colorRamp) {
     var url = 'https://tiles.rasterfoundry.com/tiles/tools/' +
-            toolRunId + '/{z}/{x}/{y}?token=' +
-            JWT + '&node=' + nodeId + '&cramp=inferno';
+            toolRunId + '/{z}/{x}/{y}?mapToken=' +
+            mapToken + '&node=' + nodeId + '&cramp=' + colorRamp;
 
     return new ol.layer.Tile({
         source: new ol.source.XYZ({url: url}),
-        opacity: 0.7
+        opacity: 1.0
     });
 };
 
@@ -72,23 +82,26 @@ var loadFires = function() {
     var projectAfterLayers = [];
 
     var views = {};
+    var cards = {};
 
     $('.card').each(function(i, fire) {
         var data = fire.dataset;
 
         // Create a View for Fire
         var view = new ol.View({
-            center: ol.proj.transform([data.x,data.y], 'EPSG:4326', 'EPSG:3857'),
+            center: ol.proj.transform([parseFloat(data.x), parseFloat(data.y)],
+                                      'EPSG:4326', 'EPSG:3857'),
             zoom: data.z
         });
 
         views[fire.id] = view;
+        cards[fire.id] = fire;
 
-        var ndviBeforeLayer = getToolRunTileNode(toolNdviBeforeNode, data.toolrun);
+        var ndviBeforeLayer = getToolRunTileNode(toolNdviBeforeNode, data.toolrun, data.toolrunmaptoken, 'viridis');
         ndviBeforeLayers.push(ndviBeforeLayer);
-        var ndviAfterLayer = getToolRunTileNode(toolNdviAfterNode, data.toolrun);
+        var ndviAfterLayer = getToolRunTileNode(toolNdviAfterNode, data.toolrun, data.toolrunmaptoken, 'viridis');
         ndviAfterLayers.push(ndviAfterLayer);
-        var ndviDifferenceLayer = getToolRunTileNode(toolNdviDifferenceNode, data.toolrun);
+        var ndviDifferenceLayer = getToolRunTileNode(toolNdviDifferenceNode, data.toolrun, data.toolrunmaptoken, 'magma');
         ndviDifferenceLayers.push(ndviDifferenceLayer);
         var projectBeforeLayer = getProjectLayer(data.projectbefore,
                                                  data.projectbeforemaptoken);
@@ -112,7 +125,7 @@ var loadFires = function() {
         projectBefore: projectBeforeLayerGroup,
         projectAfter: projectAfterLayerGroup
     };
-    return {views: views, layers:layers};
+    return {views: views, layers:layers, cards: cards};
 };
 
 
@@ -120,13 +133,11 @@ var addSlidertoLayer = function(slider, layerGroup) {
     layerGroup.getLayers().forEach(function(l) {
         l.on('precompose', function(event) {
             var ctx = event.context;
-
-            console.log(swipe.value);
-            var width = ctx.canvas.width * (swipe.value / 100);
-
+            var canvasWidth = ctx.canvas.width;
+            var width = slider.position().left + 15;
             ctx.save();
             ctx.beginPath();
-            ctx.rect(width, 0, ctx.canvas.width - width, ctx.canvas.height);
+            ctx.rect(width, 0, ctx.canvas.width + width, ctx.canvas.height);
             ctx.clip();
         });
 
@@ -197,20 +208,22 @@ $( document ).ready(function() {
     map.addLayer(fireLayers.projectBefore);
     map.addLayer(fireLayers.projectAfter);
 
-    var swipe = document.getElementById('swipe');
+    // var swipe = document.getElementById('swipe');
 
-    addSlidertoLayer(swipe, fireLayers.projectAfter);
-    addSlidertoLayer(swipe, fireLayers.ndviAfter);
+    addSlidertoLayer($mapSlider, fireLayers.projectAfter);
+    addSlidertoLayer($mapSlider, fireLayers.ndviAfter);
 
-    swipe.addEventListener('input', function() {
-        map.render();
-    }, false);
+    // swipe.addEventListener('input', function() {
+    //     map.render();
+    // }, false);
 
     $($mapSlider).bind('mousedown', function(e){
 
         $($mapContainer).bind('mousemove', function(e){
             var sliderPos = e.clientX - $mapOffset - 15;
             $($mapSlider).css('left', sliderPos);
+            console.log(sliderPos);
+            map.render();
         });
 
         $($mapSlider).bind('mouseup',function(){
@@ -228,7 +241,8 @@ $( document ).ready(function() {
         $($activateComparisonBtn).removeClass('active');
         $($beforeLayerSelect).addClass('hide');
         $($afterLayerSelect).addClass('hide');
-        $($thresholdControl).removeClass('hide');
+        // $($thresholdControl).removeClass('hide');
+        $($mapSlider).addClass('hide');
 
         fireLayers.ndviDifference.setVisible(true);
 
@@ -246,7 +260,8 @@ $( document ).ready(function() {
         $($activateExtentBtn).removeClass('active');
         $($beforeLayerSelect).removeClass('hide');
         $($afterLayerSelect).removeClass('hide');
-        $($thresholdControl).addClass('hide');
+        // $($thresholdControl).addClass('hide');
+        $($mapSlider).removeClass('hide');
 
         fireLayers.ndviDifference.setVisible(false);
 
@@ -279,4 +294,22 @@ $( document ).ready(function() {
             fireLayers.ndviAfter.setVisible(true);
         };
     });
+
+
+    $cards = $('.card');
+
+    $cards.on('click', function(e) {
+        var clickedCardId = e.currentTarget.id;
+
+        for (var cardId in fireResults.cards) {
+            var card = $(fireResults.cards[cardId]);
+            if (clickedCardId === cardId) {
+                card.addClass('active');
+                map.setView(fireResults.views[clickedCardId]);
+            } else {
+                card.removeClass('active');
+            }
+        };
+    });
+
 });
