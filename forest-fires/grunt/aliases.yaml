@@ -9,3 +9,4 @@ build:
   - 'sass:dist'
   - 'postcss:dist'
   - 'copy:dist'
+  - 'cacheBust:dist'
