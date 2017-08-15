@@ -6,6 +6,10 @@
   img {
     max-height: 4.4rem;
     vertical-align: middle;
+
+    @media (max-width: 900px) {
+      max-height: 3.3rem;
+    }
   }
 
   span {
