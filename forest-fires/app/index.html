@@ -75,20 +75,20 @@
 
   		  <!-- Card of content -->
   		  <div id="med-7-after"
-                 data-x="-121.35"
-                 data-y="50.8212"
-                 data-z="13"
-                 data-toolRun="af332b44-5b24-4d7f-982f-e56bb69669c9"
-                 data-toolRunMapToken="e3c7acdf-fefc-4324-9574-c872299cf2d3"
-                 data-projectBefore="f56945bc-ba96-4557-ab07-0fafe50b13e0"
-                 data-projectAfter="75ce48ea-020c-48b0-a0c0-aa57b9a22789"
-data-xmin="50.7147968704"
-data-ymin="-121.533924772"
-data-xmax="50.9100149782"
-data-ymax="-121.121798976"
-                 data-projectBeforeMapToken="a2956dc9-93eb-477a-8af8-c3f768bddb64"
-                 data-projectAfterMapToken="baa72b6b-ca73-4cd5-a4ea-3762c378051b"
-                 class="card active">
+             data-x="-121.35"
+             data-y="50.8212"
+             data-z="13"
+             data-toolRun="af332b44-5b24-4d7f-982f-e56bb69669c9"
+             data-toolRunMapToken="e3c7acdf-fefc-4324-9574-c872299cf2d3"
+             data-projectBefore="f56945bc-ba96-4557-ab07-0fafe50b13e0"
+             data-projectAfter="75ce48ea-020c-48b0-a0c0-aa57b9a22789"
+             data-xmin="50.7147968704"
+             data-ymin="-121.533924772"
+             data-xmax="50.9100149782"
+             data-ymax="-121.121798976"
+             data-projectBeforeMapToken="a2956dc9-93eb-477a-8af8-c3f768bddb64"
+             data-projectAfterMapToken="baa72b6b-ca73-4cd5-a4ea-3762c378051b"
+             class="card active">
     			<div class="card--inner">
             <img src="assets/images/eye-icon.svg" alt="" class="active-icon">
     			  <ul class="card--details">
@@ -478,23 +478,33 @@ data-ymax="-121.121798976"
             <div style="width: 100%">
               <div id="elect" style="background: #FDF736; width: 50px" class="legend-inner"></div>
               <div>
-                <span style="margin-top: 9px" class="label">Transmission Lines</span>
+                <div class="label-container">
+                  <span class="label">Transmission Lines</span>
+                </div>
                 <div id="natgas" style="background: #FF4F00; width: 50px" class="legend-inner"></div>
-                <span style="margin-top: 9px" class="label">Natural Gas Pipelines</span>
+                <div class="label-container">
+                  <span class="label">Natural Gas Pipelines</span>
+                </div>
                 <div id="natgas" style="background: #01020A; width: 50px" class="legend-inner"></div>
-                <span style="margin-top: 9px" class="label">Liquid Pipelines</span>
+                <div class="label-container">
+                    <span class="label">Liquid Pipelines</span>
+                </div>
               </div>
             </div>
             <div id="color-ramp-magma"
                  style="background: linear-gradient(to right, #01020A 0%,#5F1E7F 35%,#EF5F5E 68%,#FCFDBE 100%);"
                  class="legend-inner"></div>
-            <span class="label">little/no damage</span>
-            <span class="label">very damaged</span>
+            <div class="label-container">
+              <span class="label">little/no damage</span>
+              <span class="label">very damaged</span>
+            </div>
             <div id="color-ramp-viridis"
                  style="background: linear-gradient(to left, #fae72f 0%,#25a185 35%,#375a8c 68%,#46085b 100%);"
                  class="legend-inner"></div>
-            <span class="label">non-vegetation</span>
-            <span class="label">vegetation</span>
+            <div class="label-container">
+              <span class="label">non-vegetation</span>
+              <span class="label">vegetation</span>
+            </div>
           </div>
         </div>
 
