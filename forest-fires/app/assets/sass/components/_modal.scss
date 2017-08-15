@@ -5,7 +5,7 @@
   width: 100vw;
   justify-content: center;
   align-items: center;
-  z-index: 1001;
+  z-index: 2000;
   top: 0;
   left: 0;
   overflow: auto;
@@ -51,6 +51,15 @@
   .in & {
     transform: translateY(0) scale(1);
   }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    height: auto;
+    width: 100vw;
+    position: absolute;
+    top: 0px;
+    height: 80vh;
+  }
 }
 
 .modal-split {
@@ -62,6 +71,11 @@
   + .modal-split {
     border-radius: 0 4px 4px 0;
     border-left: 1px solid darken($off-white, 10%);
+  }
+
+  @media (max-width: 900px) {
+    align-items: initial;
+    flex: none;
   }
 }
 
@@ -76,6 +90,11 @@
   max-height: 70vh;
   overflow: auto;
   flex: 1;
+
+  @media (max-width: 900px) {
+    max-height: inherit;
+    max-height: initial;
+  }
 }
 
 .modal-container--footer {
@@ -97,5 +116,13 @@
 
   &:hover {
     opacity: 1;
+  }
+
+  @media (max-width: 900px) {
+    position: absolute;
+    right: 0px;
+    opacity: 1;
+    background: $slate;
+    padding: 5px;
   }
 }

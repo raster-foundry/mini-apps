@@ -195,6 +195,15 @@ $( document ).ready(function() {
             });
     });
 
+    /*
+     * Mobile sidebar toggle
+     */
+     $('#sidebar-toggle').on('click', function(el) {
+        el.preventDefault();
+
+        $('.sidebar').toggleClass('active');
+     });
+
     var map = createMap();
     var fireResults = loadFires();
     var fireLayers = fireResults.layers;

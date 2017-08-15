@@ -129,6 +129,18 @@
   display: none !important;
 }
 
+.hide-desktop {
+  @media (min-width: 901px) {
+    display: none;
+  }
+}
+
+.hide-mobile {
+  @media (max-width: 900px) {
+    display: none;
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

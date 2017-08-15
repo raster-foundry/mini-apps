@@ -9,6 +9,11 @@
   padding: 0 1rem;
   border-bottom: 1px solid $midnight;
   z-index: 100;
+
+  @media (max-width: 900px) {
+    left: 0;
+    position: relative;
+  }
 }
 
 a.nav-item,
@@ -53,4 +58,8 @@ a.nav-item,
   font-weight: 400;
   font-size: 1.1rem;
   font-family: 'Titillium Web', sans-serif;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 }
