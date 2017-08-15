@@ -13,63 +13,67 @@ var createMap = function() {
 
     // Declare a Tile layer with an OSM source
 
-    var hereLayer = new ol.layer.Tile({
-        source: new ol.source.XYZ({
-            url: 'https://1.aerial.maps.cit.api.here.com/maptile/2.1/maptile/newest/terrain.day/{z}/{x}/{y}/256/png8?app_id=mXP4DZFBZGyBmuZBKNeo&app_code=kBWb6Z7ZLcuQanT_RoP60A'
-        })
-    });
+    var hereLayer = L.tileLayer('https://1.aerial.maps.cit.api.here.com/maptile/2.1/maptile/newest/terrain.day/{z}/{x}/{y}/256/png8?app_id=mXP4DZFBZGyBmuZBKNeo&app_code=kBWb6Z7ZLcuQanT_RoP60A');
 
-    // Create latitude and longitude and convert them to default projection
-    var cacheCreek = ol.proj.transform([-121.3092, 50.8292],
-                                       'EPSG:4326', 'EPSG:3857');
-    // Create a View, set it center and zoom level
-    var view = new ol.View({
-        center: cacheCreek,
-        zoom: 13
-    });
+    var transmissionLineStyle = {
+        color: '#FDF736',
+        opacity: 0.6
+    };
+    var transmissionLines = new L.GeoJSON.AJAX(
+        '/assets/js/transmission-lines.geojson',
+        {style: transmissionLineStyle}
+    );
 
-    var mousePositionControl = new ol.control.MousePosition({
-        coordinateFormat: ol.coordinate.createStringXY(4),
-        projection: 'EPSG:4326',
-        // comment the following two lines to have the mouse position
-        // be placed within the map.
-        // className: 'custom-mouse-position',
-        // target: document.getElementById('mouse-position'),
-        undefinedHTML: '&nbsp;'
-    });
+    var liquidPipelineStyle = {
+        color: '#01020A',
+        opacity: 0.6
+    };
+    var liquidPipelines = new L.GeoJSON.AJAX(
+        '/assets/js/liquid-pipelines.geojson',
+        {style: liquidPipelineStyle}
+    );
 
-    // Instanciate a Map, set the object target to the map DOM id
-    var map = new ol.Map({
-        target: 'map',
-        controls: ol.control.defaults().extend([mousePositionControl])
-    });
+    var natGasPipelinesStyle = {
+        color: '#FF4F00',
+        opacity: 0.6
+    };
+    var natGasPipelines = new L.GeoJSON.AJAX(
+        '/assets/js/nat-gas-pipelines.geojson',
+        {style: natGasPipelinesStyle}
+    );
+
+    var map = L.map('map').setView([50.8212, -121.35], 13);
+
     // Add the created layer to the Map
     map.addLayer(hereLayer);
+    map.addLayer(transmissionLines);
+    map.addLayer(liquidPipelines);
+    map.addLayer(natGasPipelines);
 
-    // Set the view for the map
-    map.setView(view);
+    var measureOptions = {
+        position: 'bottomright',
+        primaryLengthUnit: 'meters',
+        secondaryLengthUnit: 'kilometers',
+        primaryAreaUnit: 'hectares'
+    };
+    var measureControl = L.control.measure(measureOptions);
+    measureControl.addTo(map);
     return map;
 };
 
-var getToolRunTileNode = function(nodeId, toolRunId, mapToken, colorRamp) {
+var getToolRunTileNode = function(nodeId, toolRunId, mapToken, colorRamp, bounds) {
     var url = 'https://tiles.rasterfoundry.com/tiles/tools/' +
             toolRunId + '/{z}/{x}/{y}?mapToken=' +
             mapToken + '&node=' + nodeId + '&cramp=' + colorRamp;
 
-    return new ol.layer.Tile({
-        source: new ol.source.XYZ({url: url}),
-        opacity: 1.0
-    });
+    return L.tileLayer(url, {bounds: bounds, errorTileUrl: '/assets/images/empty.png'});
 };
 
-var getProjectLayer = function(projectId, mapToken) {
+var getProjectLayer = function(projectId, mapToken, bounds) {
     var url = 'https://tiles.rasterfoundry.com/tiles/' +
             projectId + '/{z}/{x}/{y}?mapToken=' +
             mapToken;
-
-    return new ol.layer.Tile({
-        source: new ol.source.XYZ({url: url})
-    });
+    return L.tileLayer(url, {bounds: bounds, errorTileUrl: '/assets/images/empty.png'});
 };
 
 var loadFires = function() {
@@ -88,35 +92,32 @@ var loadFires = function() {
         var data = fire.dataset;
 
         // Create a View for Fire
-        var view = new ol.View({
-            center: ol.proj.transform([parseFloat(data.x), parseFloat(data.y)],
-                                      'EPSG:4326', 'EPSG:3857'),
-            zoom: data.z
-        });
+        var view = {center: {lat: parseFloat(data.y), lng: parseFloat(data.x)},
+                    zoom: data.z};
 
         views[fire.id] = view;
         cards[fire.id] = fire;
-
-        var ndviBeforeLayer = getToolRunTileNode(toolNdviBeforeNode, data.toolrun, data.toolrunmaptoken, 'viridis');
+        var bounds = [[data.xmin, data.ymin], [data.xmax, data.ymax]];
+        var ndviBeforeLayer = getToolRunTileNode(toolNdviBeforeNode, data.toolrun, data.toolrunmaptoken, 'viridis', bounds);
         ndviBeforeLayers.push(ndviBeforeLayer);
-        var ndviAfterLayer = getToolRunTileNode(toolNdviAfterNode, data.toolrun, data.toolrunmaptoken, 'viridis');
+        var ndviAfterLayer = getToolRunTileNode(toolNdviAfterNode, data.toolrun, data.toolrunmaptoken, 'viridis', bounds);
         ndviAfterLayers.push(ndviAfterLayer);
-        var ndviDifferenceLayer = getToolRunTileNode(toolNdviDifferenceNode, data.toolrun, data.toolrunmaptoken, 'magma');
+        var ndviDifferenceLayer = getToolRunTileNode(toolNdviDifferenceNode, data.toolrun, data.toolrunmaptoken, 'magma', bounds);
         ndviDifferenceLayers.push(ndviDifferenceLayer);
         var projectBeforeLayer = getProjectLayer(data.projectbefore,
-                                                 data.projectbeforemaptoken);
+                                                 data.projectbeforemaptoken, bounds);
         projectBeforeLayers.push(projectBeforeLayer);
         var projectAfterLayer = getProjectLayer(data.projectafter,
-                                                 data.projectaftermaptoken);
+                                                 data.projectaftermaptoken, bounds);
         projectAfterLayers.push(projectAfterLayer);
 
     });
 
-    var ndviBeforeLayerGroup = new ol.layer.Group({layers: ndviBeforeLayers});
-    var ndviAfterLayerGroup = new ol.layer.Group({layers: ndviAfterLayers});
-    var ndviDifferenceLayerGroup = new ol.layer.Group({layers: ndviDifferenceLayers});
-    var projectBeforeLayerGroup = new ol.layer.Group({layers: projectBeforeLayers});
-    var projectAfterLayerGroup = new ol.layer.Group({layers: projectAfterLayers});
+    var ndviBeforeLayerGroup = L.layerGroup(ndviBeforeLayers);
+    var ndviAfterLayerGroup = L.layerGroup(ndviAfterLayers);
+    var ndviDifferenceLayerGroup = L.layerGroup(ndviDifferenceLayers);
+    var projectBeforeLayerGroup = L.layerGroup(projectBeforeLayers);
+    var projectAfterLayerGroup = L.layerGroup(projectAfterLayers);
 
     var layers = {
         ndviBefore: ndviBeforeLayerGroup,
@@ -161,8 +162,8 @@ $( document ).ready(function() {
     $mapOffset = $($mapContainer).offset().left;
     $mapSlider = $('#map-slider');
 
-    $beforeLayerSelect = $('#before-comparison-layer-select');
-    $afterLayerSelect = $('#after-comparison-layer-select');
+    $beforeLayerSelect = $('#left-side-select');
+    $afterLayerSelect = $('#right-side-select');
 
     $thresholdControl = $('#threshold-control');
 
@@ -198,101 +199,59 @@ $( document ).ready(function() {
     var fireResults = loadFires();
     var fireLayers = fireResults.layers;
 
-    map.addLayer(fireLayers.ndviBefore);
-    map.addLayer(fireLayers.ndviAfter);
+    var layerVisibleLeft = fireLayers.projectBefore;
+    var layerVisibleRight = fireLayers.ndviDifference;
 
-    fireLayers.ndviDifference.setVisible(false);
-    fireLayers.projectBefore.setVisible(false);
-    fireLayers.projectAfter.setVisible(false);
-    map.addLayer(fireLayers.ndviDifference);
-    map.addLayer(fireLayers.projectBefore);
-    map.addLayer(fireLayers.projectAfter);
+    var sideBySide = L.control.sideBySide(layerVisibleLeft.getLayers(),
+                                          layerVisibleRight.getLayers());
+    sideBySide.addTo(map);
 
-    // var swipe = document.getElementById('swipe');
+    map.addLayer(layerVisibleLeft);
+    map.addLayer(layerVisibleRight);
 
-    addSlidertoLayer($mapSlider, fireLayers.projectAfter);
-    addSlidertoLayer($mapSlider, fireLayers.ndviAfter);
+    var setVisibleLayer = function(side, layer) {
+        if (side === 'left') {
+            var currentLayer = layerVisibleLeft;
+            map.removeLayer(currentLayer);
+            layerVisibleLeft = layer;
+            map.addLayer(layerVisibleLeft);
+            sideBySide.setLeftLayers(layerVisibleLeft.getLayers());
+        } else {
+            var currentLayer = layerVisibleRight;
+            map.removeLayer(currentLayer);
+            layerVisibleRight = layer;
+            map.addLayer(layerVisibleRight);
+            sideBySide.setRightLayers(layerVisibleRight.getLayers());
+        }
+    };
 
-    // swipe.addEventListener('input', function() {
-    //     map.render();
-    // }, false);
-
-    $($mapSlider).bind('mousedown', function(e){
-
-        $($mapContainer).bind('mousemove', function(e){
-            var sliderPos = e.clientX - $mapOffset - 15;
-            $($mapSlider).css('left', sliderPos);
-            console.log(sliderPos);
-            map.render();
-        });
-
-        $($mapSlider).bind('mouseup',function(){
-            $($mapContainer).unbind('mousemove')
-        });
-    });
-
-    /*
-     * Extent vs Comparison
-     */
-    $($activateExtentBtn).on('click', function(el) {
-        el.preventDefault();
-
-        $($activateExtentBtn).addClass('active');
-        $($activateComparisonBtn).removeClass('active');
-        $($beforeLayerSelect).addClass('hide');
-        $($afterLayerSelect).addClass('hide');
-        // $($thresholdControl).removeClass('hide');
-        $($mapSlider).addClass('hide');
-
-        fireLayers.ndviDifference.setVisible(true);
-
-        fireLayers.projectBefore.setVisible(false);
-        fireLayers.projectAfter.setVisible(false);
-
-        fireLayers.ndviBefore.setVisible(false);
-        fireLayers.ndviAfter.setVisible(false);
-    });
-
-    $($activateComparisonBtn).on('click', function(el) {
-        el.preventDefault();
-
-        $($activateComparisonBtn).addClass('active');
-        $($activateExtentBtn).removeClass('active');
-        $($beforeLayerSelect).removeClass('hide');
-        $($afterLayerSelect).removeClass('hide');
-        // $($thresholdControl).addClass('hide');
-        $($mapSlider).removeClass('hide');
-
-        fireLayers.ndviDifference.setVisible(false);
-
-        fireLayers.projectBefore.setVisible(false);
-        fireLayers.projectAfter.setVisible(false);
-
-        fireLayers.ndviBefore.setVisible(true);
-        fireLayers.ndviAfter.setVisible(true);
-    });
+    var getLayer = function(name) {
+        if (name === 'ndvi-before') {
+            return fireLayers.ndviBefore;
+        } else if (name === 'ndvi-after') {
+            return fireLayers.ndviAfter;
+        } else if (name === 'natural-before') {
+            return fireLayers.projectBefore;
+        } else if (name === 'natural-after') {
+            return fireLayers.projectAfter;
+        } else if (name === 'burn-extent') {
+            return fireLayers.ndviDifference;
+        } else {
+            throw 'Unexpected Layer Name: ' + name;
+        }
+    };
 
     /*
      * Choose Comparison
      */
     $($beforeLayerSelect).on('change', function() {
-        if (this.value === "natural") {
-            fireLayers.projectBefore.setVisible(true);
-            fireLayers.ndviBefore.setVisible(false);
-        } else {
-            fireLayers.projectBefore.setVisible(false);
-            fireLayers.ndviBefore.setVisible(true);
-        };
+        var layer = getLayer(this.value);
+        setVisibleLayer('left', layer);
     });
 
     $($afterLayerSelect).on('change', function() {
-        if (this.value === "natural") {
-            fireLayers.projectAfter.setVisible(true);
-            fireLayers.ndviAfter.setVisible(false);
-        } else {
-            fireLayers.projectAfter.setVisible(false);
-            fireLayers.ndviAfter.setVisible(true);
-        };
+        var layer = getLayer(this.value);
+        setVisibleLayer('right', layer);
     });
 
 
@@ -305,11 +264,11 @@ $( document ).ready(function() {
             var card = $(fireResults.cards[cardId]);
             if (clickedCardId === cardId) {
                 card.addClass('active');
-                map.setView(fireResults.views[clickedCardId]);
+                var view = fireResults.views[clickedCardId];
+                map.setView(view.center, view.zoom);
             } else {
                 card.removeClass('active');
             }
         };
     });
-
 });

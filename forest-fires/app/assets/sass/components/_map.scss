@@ -26,9 +26,9 @@
 }
 
 .map-inner {
-  height: 100%;
+  height: calc(100% - 57px);
   width: 100%;
-  padding-top: 57px;
+  top: 57px;
   position: relative;
 }
 
@@ -78,9 +78,19 @@
   }
 }
 
+
+span.coords {
+  font-size: small;
+  font-weight: 100;
+  color: #7b8391;
+  vertical-align: bottom
+}
+
+
+
 .map-legend {
   position: absolute;
-  z-index: 1;
+  z-index: 1001 !important;
   bottom: 2rem;
   left: 2rem;
   margin-top: 10px;
@@ -98,15 +108,14 @@
   }
 
   .legend-inner {
-    height: 2rem;
+    height: 1.2rem;
     border-radius: 4px;
-    margin-top: 10px;
+    margin-top: 6px;
     width: 100%;
     background: linear-gradient(to right, #fae72f 0%,#25a185 35%,#375a8c 68%,#46085b 100%);
     border: 2px solid $slate;
     flex: none;
   }
-
   .label {
     font-size: 1.3rem;
     color: #fff;
