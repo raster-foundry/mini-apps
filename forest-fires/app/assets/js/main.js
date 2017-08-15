@@ -254,6 +254,9 @@ $( document ).ready(function() {
         setVisibleLayer('right', layer);
     });
 
+    $(document).ready(function() {
+        $('.popup-link').magnificPopup({type:'image'});
+    });
 
     $cards = $('.card');
 

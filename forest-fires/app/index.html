@@ -23,7 +23,7 @@
       window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
       heap.load("2839226139");
     </script>
-    
+
     <!-- Google analytics -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -547,7 +547,7 @@ data-ymax="-121.121798976"
   		<div class="modal-split background-white">
   		  <div class="modal-container--inner">
   			<h4>About this application</h4>
-  			<p>One of our colleagues lives in British Columbia and recently <a href="http://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=a1e7b1ecb1514974a9ca00bdbfffa3b1" target="_blank">shared a map</a> with the team of the many devastating wildfires affecting the region. That got us thinking--could we take a closer look at the effect these wildfires were having? So we whipped up a forest fire change detection model based on our good friend <a href="https://www.youtube.com/watch?v=xxYFNSWJuRM" target="_blank">Jarlath O’Neill-Dunne’s work,</a> and threw together a quick interface for browsing the results of the model. A full write up of how we built this application is forthcoming on our <a href="https://blog.rasterfoundry.com/" target="_blank">blog</a>.
+  			<p>One of our colleagues lives in British Columbia and recently <a href="http://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=a1e7b1ecb1514974a9ca00bdbfffa3b1" target="_blank">shared a map</a> with the team of the many devastating wildfires affecting the region. That got us thinking--could we take a closer look at the effect these wildfires were having? So we whipped up a <a class="popup-link" href="/assets/images/model.png">forest fire change detection model</a> based on our good friend <a href="https://www.youtube.com/watch?v=xxYFNSWJuRM" target="_blank">Jarlath O’Neill-Dunne’s work,</a> and threw together a quick interface for browsing the results of the model. A full write up of how we built this application is forthcoming on our <a href="https://blog.rasterfoundry.com/" target="_blank">blog</a>.
   			<h5>What is Raster Foundry</h5>
   			<p>At Raster Foundry, we build web tools for quickly and repeatably turning earth imagery into information. This application was built on top of our <a href="https://docs.rasterfoundry.com/" target="_blank">API</a> in just a couple of days without ever downloading a single sattelite image. If you're curious about how Raster Foundry could help your business better monitor and respond to changes on the ground, drop your email in the form to the left or reach out directly at info@rasterfoundry.com.</p>
   			<h5>Imagery provider</h5>
@@ -561,10 +561,12 @@ data-ymax="-121.121798976"
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0/dist/leaflet.css"/>
     <link rel="stylesheet" href="assets/js/leaflet-measure.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
     <script src="https://unpkg.com/leaflet@1.0.0/dist/leaflet.js"></script>
     <script src="assets/js/leaflet-measure.min.js"></script>
     <script src="assets/js/leaflet-side-by-side.js"></script>
     <script src="assets/js/leaflet.ajax.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.js"></script>
 	<script src="assets/js/main.js"></script>
   </body>
 </html>
