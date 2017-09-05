@@ -1,0 +1,7 @@
+
+.icon-zoom-in:before { content: '\e800'; } /* '' */
+.icon-zoom-out:before { content: '\e801'; } /* '' */
+.icon-minus:before { content: '\e802'; } /* '' */
+.icon-plus:before { content: '\e80d'; } /* '' */
+.icon-project:before { content: '\e823'; } /* '' */
+.icon-load:before { content: '\e838'; } /* '' */
