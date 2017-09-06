@@ -1,0 +1,55 @@
+/* * * *
+ * Utilities
+ * * * */
+@import
+  'settings/colors',
+	'settings/variables',
+	'settings/mixins';
+
+/* * * *
+ * Base boilerplate styling
+ * * * */
+@import
+  'base/normalize',
+  'base/base',
+  'base/typography',
+	'base/utilities';
+
+/* * * *
+ * Layout and overall structure
+ * * * */
+@import
+  'layout/container',
+  'layout/grid',
+  'layout/navbar',
+  'layout/sidebar';
+
+/* * * *
+ * Components styling
+ * * * */
+@import
+  'components/button',
+  'components/card',
+  'components/dropdown',
+  'components/form',
+  'components/logo',
+  'components/map',
+  'components/modal';
+
+/* * * *
+ * Pages styling
+ * * * */
+@import
+  'pages/imagedetection';
+
+/* * * *
+ * Shame - Because Chris Can't Design
+ * * * */
+@import
+  'shame';
+
+
+/* * * *
+ * Page specific styling
+ * * * */
+// @import Placeholder
