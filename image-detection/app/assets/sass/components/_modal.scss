@@ -1,0 +1,128 @@
+.modal {
+  position: fixed;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  opacity: 0;
+  transition: .4s ease-in-out opacity;
+
+  &.in {
+    opacity: 1;
+  }
+
+  &.out {
+    opacity: 0;
+  }
+
+  .logo {
+    padding: 0;
+  }
+
+  .logo img {
+    max-height: 10rem;
+  }
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($color-midnight, .8);
+}
+
+.modal-container {
+  background-color: #fff;
+  border-radius: 4px;
+  position: relative;
+  z-index: 10;
+  width: 800px;
+  display: flex;
+  transform: translateY(40px) scale(.9);
+  transition: .3s ease-in-out transform;
+
+  .in & {
+    transform: translateY(0) scale(1);
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    height: auto;
+    width: 100vw;
+    position: absolute;
+    top: 0px;
+    height: 80vh;
+  }
+}
+
+.modal-split {
+  flex: 1;
+  border-radius: 4px 0 0 4px;
+  display: flex;
+  align-items: center;
+
+  + .modal-split {
+    border-radius: 0 4px 4px 0;
+    border-left: 1px solid darken(#fff, 10%);
+  }
+
+  @media (max-width: 900px) {
+    align-items: initial;
+    flex: none;
+  }
+}
+
+.modal-container--header {
+  border-bottom: 1px solid darken(#fff, 10%);
+  text-align: center;
+  background-color: #fff;
+}
+
+.modal-container--inner {
+  padding: 1.5rem 2rem;
+  max-height: 70vh;
+  overflow: auto;
+  flex: 1;
+
+  @media (max-width: 900px) {
+    max-height: inherit;
+    max-height: initial;
+  }
+}
+
+.modal-container--footer {
+  padding: 1rem 2rem;
+  border-top: 1px solid darken(#fff, 10%);
+  text-align: center;
+  background-color: #fff;
+}
+
+.modal-close {
+  position: absolute;
+  right: -50px;
+  opacity: .6;
+  transition: .2s ease-in-out opacity;
+
+  img {
+    width: 30px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  @media (max-width: 900px) {
+    position: absolute;
+    right: 0px;
+    opacity: 1;
+    background: $color-dark-2;
+    padding: 5px;
+  }
+}
