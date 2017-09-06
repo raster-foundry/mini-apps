@@ -1,0 +1,8 @@
+.grid {
+  display: grid;
+  grid-template-areas: 
+    "card card card"
+    "category category category";
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 50px;
+}

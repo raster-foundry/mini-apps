@@ -1,0 +1,63 @@
+.main-nav {
+  background-color: $color-dark-2;
+  left: 0;
+  right: 0;
+  width: 100%;
+
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid $color-midnight;
+  z-index: 100;
+
+  @media (max-width: 900px) {
+    left: 0;
+    position: relative;
+  }
+}
+
+a.nav-item,
+.nav-item > a {
+  &:hover,
+  &:focus {
+    opacity: .5;
+  }
+}
+
+.nav-section {
+  flex: 1;
+  display: flex;
+  align-self: center;
+  align-items: center;
+
+  &.primary {
+    order: 1;
+  }
+
+  &.secondary {
+    float: right;
+    color: #fff;
+  }
+}
+
+.nav-item {
+  padding: 1.2rem;
+  margin: 0;
+
+  // removes margin on search form in nav
+  .form-item {
+    margin: 0;
+  }
+}
+
+.presented-text {
+  color: #fff;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 400;
+  font-size: 1.1rem;
+  font-family: 'Titillium Web', sans-serif;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
+}

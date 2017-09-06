@@ -1,0 +1,32 @@
+/* * * *
+ * Screen Sizes
+ * Used in _mixins.scss > @mixin respond-to($breakpoint)
+ * * * */
+$breakpoints: (
+
+  'xxs': (max-width: 480px),
+
+  'xs': (max-width: 767px),
+
+  'sm': "(min-width: 768px) and (max-width: 991px)",
+  'sm-up': (min-width: 768px),
+  'sm-down': (max-width: 991px),
+
+  'md': "(min-width: 992px) and (max-width: 1200px)",
+  'md-up': (min-width: 992px),
+  'md-down': (max-width: 1200px),
+
+  'lg': (min-width: 1201px),
+);
+
+$font-size-h1: 2.5rem;
+$font-size-h2: 2.2rem;
+$font-size-h3: 2rem;
+$font-size-h4: 1.8rem;
+$font-size-h5: 1.4rem;
+$font-size-h6: 1.2rem;
+
+$gutter-width: 6px;
+
+$font-family-heading: "interface";
+$font-family-body: "interface";

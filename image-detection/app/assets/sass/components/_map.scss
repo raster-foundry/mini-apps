@@ -1,0 +1,163 @@
+.map {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-top: 5.8rem;
+  @media (max-width: 900px) {
+    padding: 0;
+    margin-top: 0;
+  }
+}
+
+.map-toolbar {
+  display: flex;
+  width: 100%;
+  background-color: #fff;
+}
+
+.map-toolbar--section {
+  flex: 1;
+  padding: 10px;
+  display: flex;
+
+  select,
+  .form-item {
+    flex: 1;
+    margin: 0 5px;
+    -moz-appearance: none;
+  }
+}
+
+.map-inner {
+  flex: 1;
+  width: 100%;
+
+  @media (max-width: 900px) {
+
+  }
+}
+
+.map-slider {
+  position: absolute;
+  left: calc(50% - 15px);
+  z-index: 10;
+  cursor: grab;
+  width: 30px;
+
+  &:active,
+  &:focus {
+    cursor: grabbing;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 2px;
+    background: #fff;
+    margin-left: 15px;
+  }
+}
+
+.map-slider--grip {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 30px;
+  height: 50px;
+  background: #738ffc;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 10px 0 #465076, inset 0 0px 0px 1px rgb(108, 124, 185);
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    pointer-events: none;
+    user-select: none;
+  }
+}
+
+span.coords {
+  font-size: small;
+  font-weight: 100;
+  color: #7b8391;
+  vertical-align: bottom
+}
+
+.map-legend {
+  position: absolute;
+  z-index: 1001 !important;
+  bottom: 2rem;
+  left: 2rem;
+  margin-top: 10px;
+  background: $color-midnight;
+  padding: 7px;
+  border-radius: 4px;
+  width: 250px;
+  box-shadow: 0 0 0 4px rgba(#fff, .4);
+  user-select: none;
+  z-index: 100;
+
+  @media (max-width: 900px) {
+    width: auto;
+
+    &:after {
+      content: 'Legend';
+      color: #fff;
+      font-weight: 600;
+      line-height: 1.52;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      font-family: 'Titillium Web', sans-serif;
+      font-size: 1.5rem;
+    }
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+
+    @media (max-width: 900px) {
+      display: none;
+    }
+  }
+
+  &:hover {
+    width: 20rem;
+
+    .legend {
+      display: flex;
+    }
+  }
+
+  .legend-inner {
+    height: 1.2rem;
+    border-radius: 4px;
+    margin-top: 6px;
+    width: 100%;
+    background: linear-gradient(to right, #fae72f 0%,#25a185 35%,#375a8c 68%,#46085b 100%);
+    border: 2px solid $color-dark-2;
+    flex: none;
+  }
+  .label-container {
+    display: flex;
+    width: 100%;
+    .label {
+      font-size: 1.3rem;
+      color: #fff;
+      &:first-child {
+        flex: 1;
+      }
+    }
+  }
+}
+
+.ol-control button {
+  background-color: $color-dark-2 !important;
+}
