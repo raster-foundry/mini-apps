@@ -67,11 +67,14 @@
         const url = L.Util.template(
           basemap.url,
           Object.assign(
+             {},
+            basemap.params,
             {
-              s: basemap.params.subdomains && basemap.params.subdomains[0] ?
-                basemap.params.subdomain[0] : 'a',
+              s: basemap.params.subdomains &&
+                basemap.params.subdomains[0] ?
+                basemap.params.subdomains[0] : 'a',
               z: '4',
-              x: '8',
+              x: '7',
               y: '6',
             },
           ),
@@ -86,6 +89,7 @@
         this.$children.forEach((child) => {
           child.deferredMountedTo(parent);
         });
+        this.setBasemap(this.layers[0]);
       },
     },
     data() {

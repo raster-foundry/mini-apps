@@ -28,6 +28,9 @@ import L from 'leaflet';
 
 require('../sbs.js');
 
+const HERE_APP_ID = 'mXP4DZFBZGyBmuZBKNeo';
+const HERE_APP_CODE = 'kBWb6Z7ZLcuQanT_RoP60A';
+
 export default {
   name: 'map',
   methods: {
@@ -146,6 +149,36 @@ export default {
               'OpenStreetMap</a> &copy;<a href="http://cartodb.com/attributions">CartoDB</a>',
             maxZoom: 30,
             name: 'Dark',
+            pane: 'basemap',
+          },
+        },
+        {
+          url: 'https://{s}.{base}.maps.cit.api.here.com/maptile/2.1/{type}/{mapID}/hybrid.day/{z}/{x}/{y}/{size}/{format}?app_id={app_id}&app_code={app_code}&lg={language}',
+          params: {
+            attribution: 'Map &copy; 1987-2014 <a href="http://developer.here.com">HERE</a>',
+            subdomains: '1234',
+            mapID: 'newest',
+            app_id: HERE_APP_ID,
+            app_code: HERE_APP_CODE,
+            base: 'aerial',
+            maxZoom: 30,
+            maxNativeZoom: 20,
+            type: 'maptile',
+            language: 'eng',
+            format: 'png8',
+            size: '256',
+            name: 'Aerial',
+            pane: 'basemap',
+          },
+        },
+        {
+          url: 'https://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?app_id={app_id}&app_code={app_code}',
+          params: {
+            attribution: 'Map &copy; 1987-2014 <a href="http://developer.here.com">HERE</a>',
+            subdomains: '1234',
+            app_id: HERE_APP_ID,
+            app_code: HERE_APP_CODE,
+            name: 'Streets',
             pane: 'basemap',
           },
         },
