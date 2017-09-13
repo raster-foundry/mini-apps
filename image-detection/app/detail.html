@@ -21,22 +21,22 @@
     <meta name="theme-color" content="#353b59">
 
     <!-- Heap analytics -->
-    <!--<script type="text/javascript">-->
-      <!--window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};-->
-      <!--heap.load("2839226139");-->
-    <!--</script>-->
+    <script type="text/javascript">
+      window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+      heap.load("2839226139");
+    </script>
 
     <!-- Google analytics -->
-    <!--<script>-->
-      <!--(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){-->
-      <!--(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),-->
-      <!--m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)-->
-      <!--})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');-->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      <!--ga('create', 'UA-970854-25', 'auto');-->
-      <!--ga('send', 'pageview');-->
+      ga('create', 'UA-970854-25', 'auto');
+      ga('send', 'pageview');
 
-    <!--</script>-->
+    </script>
   </head>
   <body>
 	<div class="app-container">
@@ -52,40 +52,55 @@
   		  <img src="assets/images/raster-foundry-symbol.svg">
   		</div>
 	  </header>
-    <main class="main-container" >
-      <div class="project--title">
-        <h1>Projects</h1>
-      </div>
+    <main class="main-container">
+      <header class="project--header">
+        <div class="project--title">
+          <button class="header--back">
+            ← All projects
+          </button>
+          <h1>Port of Singapore ship detection</h1>
+          <div class="project--date">
+            Last updated 3 days ago
+          </div>
+        </div>
+        <div class="project--summary">
+          <div class="project--stats">
+            <div class="project--stat">
+              <div class="number">52,412</div>
+              <div class="label">Average</div>
+            </div>
+            <div class="project--stat">
+              <div class="number">52,412</div>
+              <div class="label">Median</div>
+            </div>
+            <div class="project--stat">
+              <div class="number">52,412</div>
+              <div class="label">Variance</div>
+            </div>
+          </div>
+          <div class="project--chart">
+            <div class="chart"></div>
+          </div>
+        </div>
+      </header>
       <div class="card--projects">
-        <div id="card--container--home" class="card--container">
+        <div id="#card--container--home" class="card--container">
           <script id="card--template" type="text/x-handlebars-template">
-            <a href="/detail.html?feed={{ id }}">
             <div class="card--project">
-              <h2 class="card--heading">{{ title }}</h2>
-              <div class="card--date">
-                Last updated 3 days ago
-              </div>
+              <h2 class="card--heading">Apr. 2, 2018</h2>
               <div class="card--stats">
                 <div class="card--stat">
-                  <div class="number">{{ mean }}</div>
-                  <div class="label">Mean</div>
-                </div>
-                <div class="card--stat">
-                  <div class="number">{{ median }}</div>
-                  <div class="label">Median</div>
-                </div>
-                <div class="card--stat">
-                  <div class="number">{{ variance }}</div>
-                  <div class="label">Variance</div>
+                  <div class="number">56,255</div>
+                  <div class="label">Images</div>
                 </div>
               </div>
-              <div class="card--chart"></div>
+              <div class="card--map"></div>
             </div>
-            </a>
           </script>
         </div>
       </div>
     </main>
+	  <!-- Navbar -->
 	</div>
 
 	<!-- scripts -->
@@ -108,6 +123,6 @@
     <script src="assets/js/vendor/handlebars.min.js"></script>
     <script src="assets/js/vendor/leaflet.js"></script>
     <script src="assets/js/data.js"></script>
-	<script src="assets/js/main.js"></script>
+	<script src="assets/js/detail.js"></script>
   </body>
 </html>

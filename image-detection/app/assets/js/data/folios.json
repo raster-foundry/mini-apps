@@ -1,0 +1,60 @@
+{
+  "results": [
+    {
+      "title": "Long Beach",
+      "id": "long-beach",
+      "median": 10,
+      "mean": 5,
+      "variance": 25,
+      "projects": []
+    },
+    {
+      "title": "Suez Canal",
+      "id": "suez",
+      "median": 10,
+      "mean": 5,
+      "variance": 25,
+      "projects": []
+    },
+    {
+      "title": "Singapore",
+      "id": "singapore",
+      "median": 10,
+      "mean": 5,
+      "variance": 25,
+      "projects": ["c4bbb2e2-290e-4fa3-88a4-30d704225943"]
+    },
+    {
+      "title": "Panama",
+      "id": "panama",
+      "median": 10,
+      "mean": 5,
+      "variance": 25,
+      "projects": []
+    },
+    {
+      "title": "Hong Kong",
+      "id": "hong-kong",
+      "median": 10,
+      "mean": 5,
+      "variance": 25,
+      "projects": []
+    },
+    {
+      "title": "Richmond",
+      "id": "richmond",
+      "median": 10,
+      "mean": 5,
+      "variance": 25,
+      "projects": []
+    },
+    {
+      "title": "Oakland",
+      "id": "oakland",
+      "median": 10,
+      "mean": 5,
+      "variance": 25,
+      "projects": []
+    }
+  ]
+}
