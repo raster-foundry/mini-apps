@@ -17,5 +17,15 @@ $(function() {
             projectsList.append(html);
         });
     };
+
+    var findFolio = function (data) {
+        var x = _.find(data.results, function (d) {
+            return d.id == feedName
+        });
+        console.log(x)
+        return x
+    };
+
     getFolios().then(fillData);
+    getFolios().then(findFolio);
 })

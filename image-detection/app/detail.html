@@ -52,54 +52,55 @@
   		  <img src="assets/images/raster-foundry-symbol.svg">
   		</div>
 	  </header>
-    <main class="main-container">
-      <header class="project--header">
-        <div class="project--title">
-          <button class="header--back">
-            ← All projects
-          </button>
-          <h1>Port of Singapore ship detection</h1>
-          <div class="project--date">
-            Last updated 3 days ago
-          </div>
-        </div>
-        <div class="project--summary">
-          <div class="project--stats">
-            <div class="project--stat">
-              <div class="number">52,412</div>
-              <div class="label">Average</div>
-            </div>
-            <div class="project--stat">
-              <div class="number">52,412</div>
-              <div class="label">Median</div>
-            </div>
-            <div class="project--stat">
-              <div class="number">52,412</div>
-              <div class="label">Variance</div>
+
+      <main class="main-container">
+        <header class="project--header">
+          <div class="project--title">
+            <button class="header--back">
+              ← All projects
+            </button>
+            <h1>Port of Singapore ship detection</h1>
+            <div class="project--date">
+              Last updated 3 days ago
             </div>
           </div>
-          <div class="project--chart">
-            <div class="chart"></div>
+          <div class="project--summary">
+            <div class="project--stats">
+              <div class="project--stat">
+                <div class="number">52,412</div>
+                <div class="label">Average</div>
+              </div>
+              <div class="project--stat">
+                <div class="number">52,412</div>
+                <div class="label">Median</div>
+              </div>
+              <div class="project--stat">
+                <div class="number">52,412</div>
+                <div class="label">Variance</div>
+              </div>
+            </div>
+            <div class="project--chart">
+              <div class="chart"></div>
+            </div>
           </div>
-        </div>
-      </header>
-      <div class="card--projects">
-        <div id="#card--container--home" class="card--container">
-          <script id="card--template" type="text/x-handlebars-template">
+        </header>
+        <div class="card--projects">
+          <div id="card--container--home" class="card--container">
+            <script id="card--template" type="text/x-handlebars-template">
             <div class="card--project">
               <h2 class="card--heading">Apr. 2, 2018</h2>
               <div class="card--stats">
                 <div class="card--stat">
                   <div class="number">56,255</div>
-                  <div class="label">Images</div>
+                  <div class="label">Ships Detected</div>
                 </div>
               </div>
               <div class="card--map"></div>
             </div>
-          </script>
+            </script>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
 	  <!-- Navbar -->
 	</div>
 
@@ -120,6 +121,7 @@
             })
         });
     </script>
+    <script src="assets/js/vendor/underscore-min.js"></script>
     <script src="assets/js/vendor/handlebars.min.js"></script>
     <script src="assets/js/vendor/leaflet.js"></script>
     <script src="assets/js/data.js"></script>
