@@ -1,7 +1,7 @@
 language: node_js
 
 env:
-  matrix: 
+  matrix:
     - APP_DIR=forest-fires
     - APP_DIR=slider
   global:
@@ -23,7 +23,7 @@ script:
   - yarn build
 
 before_deploy:
-  - pip install awscli
+  - pip install awscli --user travis
 
 deploy:
   - provider: script
