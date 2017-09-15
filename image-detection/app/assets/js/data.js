@@ -13,7 +13,9 @@ var getPrediction = function(projectId) {
 };
 
 var getProjectAndPrediction = function(projectId) {
-    return $.when(getProject(projectId), getPrediction(projectId))
+    return $.when(getProject(projectId), getPrediction(projectId)).done(function(x, y) {
+        debugger
+    })
 };
 
 var getUrlParameter = function getUrlParameter(sParam) {

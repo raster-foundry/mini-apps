@@ -10,7 +10,6 @@ $(function() {
     var projectsList = $('#card--container--home');
 
     var fillData = function (data) {
-        debugger;
         $.each(data.results, function (i, v) {
             var html = template(v);
             // console.log(html);
@@ -22,10 +21,15 @@ $(function() {
         var x = _.find(data.results, function (d) {
             return d.id == feedName
         });
-        console.log(x)
         return x
     };
 
     getFolios().then(fillData);
-    getFolios().then(findFolio);
+    getFolios().then(findFolio).then(function(f) {
+        getProjectAndPrediction(f.projects[0]).then(function (x, y) {
+            console.log(x)
+            console.log(y)
+        });
+        console.log(f);
+    });
 })
