@@ -4,16 +4,13 @@ var toolNdviBeforeNode = 'a4d3b166-7dda-4eb4-bfd1-d1d42400b15e';
 var toolNdviAfterNode = 'd0029397-e300-4c9a-af71-21ad3f2224ec';
 var toolNdviDifferenceNode = '01f88817-acd7-4bbd-93cb-6fdd253e9c83';
 
-var HERE_APP_CODE = '';
-var HERE_APP_ID = '';
-
 // Get Map - Add Difference Layers
 
 var createMap = function() {
 
     // Declare a Tile layer with an OSM source
 
-    var hereLayer = L.tileLayer('https://1.aerial.maps.cit.api.here.com/maptile/2.1/maptile/newest/terrain.day/{z}/{x}/{y}/256/png8?app_id=mXP4DZFBZGyBmuZBKNeo&app_code=kBWb6Z7ZLcuQanT_RoP60A');
+    var hereLayer = L.tileLayer('https://1.aerial.maps.cit.api.here.com/maptile/2.1/maptile/newest/terrain.day/{z}/{x}/{y}/256/png8?app_id=v88MqS5fQgxuHyIWJYX7&app_code=5pn07ENomTHOap0u7nQSFA');
 
     var transmissionLineStyle = {
         color: '#FDF736',
