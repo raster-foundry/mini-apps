@@ -28,8 +28,8 @@ import L from 'leaflet';
 
 require('../sbs.js');
 
-const HERE_APP_ID = 'mXP4DZFBZGyBmuZBKNeo';
-const HERE_APP_CODE = 'kBWb6Z7ZLcuQanT_RoP60A';
+const HERE_APP_ID = 'v88MqS5fQgxuHyIWJYX7';
+const HERE_APP_CODE = '5pn07ENomTHOap0u7nQSFA';
 
 export default {
   name: 'map',
