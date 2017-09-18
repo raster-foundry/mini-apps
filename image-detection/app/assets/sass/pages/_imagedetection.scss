@@ -168,6 +168,10 @@ html, body {
   background-color: #ccc;
 }
 
+.description {
+  min-width: 256px;
+}
+
 .description--empty {
   color: #999;
 }

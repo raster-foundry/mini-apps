@@ -14,7 +14,7 @@ var getPrediction = function(projectId) {
 
 var getProjectAndPrediction = function(projectId) {
     return $.when(getProject(projectId), getPrediction(projectId)).done(function(x, y) {
-        debugger
+        // debugger
     })
 };
 
@@ -31,4 +31,17 @@ var getUrlParameter = function getUrlParameter(sParam) {
             return sParameterName[1] === undefined ? true : sParameterName[1];
         }
     }
+};
+
+var getProjectLeafletLayer = function(projectId, mapToken) {
+    return L.tileLayer(
+        'https://tiles.rasterfoundry.com/tiles/{projectId}/{z}/{x}/{y}/?mapToken={mapToken}',
+        {projectId: projectId, mapToken: mapToken}
+    );
+};
+
+var getProjectExport = function(projectId, bbox) {
+    return 'https://tiles.rasterfoundry.com/tiles/' + projectId +
+        '/export/?bbox=' + bbox +
+        '&zoom=20&mapToken=6a9b80a4-3541-4b8e-8dda-92ad9eed938b'
 };
