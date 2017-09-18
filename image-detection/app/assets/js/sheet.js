@@ -3,6 +3,7 @@ $(function() {
     console.log(feedName);
 
     var projectId = getUrlParameter('project');
+    var mapToken = getUrlParameter('mapToken');
 
     var source = $("#prediction--template").html();
 
@@ -20,7 +21,7 @@ $(function() {
         $.each(data, function (i, v) {
             var bufferedGeom = turf.buffer(v.geometry, 600, 'meters');
             var bbox = turf.bbox(bufferedGeom).toString();
-            v.properties.exportURL = getProjectExport(projectId, bbox);
+            v.properties.exportURL = getProjectExport(projectId, bbox, mapToken);
             var upScore = v.properties.score * 10000000;
             v.properties.score = Math.round(upScore) / 10000000;
             console.log(v.properties.score.toString());

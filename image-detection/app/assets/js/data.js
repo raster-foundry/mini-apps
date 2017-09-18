@@ -40,8 +40,8 @@ var getProjectLeafletLayer = function(projectId, mapToken) {
     );
 };
 
-var getProjectExport = function(projectId, bbox) {
+var getProjectExport = function(projectId, bbox, mapToken) {
     return 'https://tiles.rasterfoundry.com/tiles/' + projectId +
         '/export/?bbox=' + bbox +
-        '&zoom=20&mapToken=6a9b80a4-3541-4b8e-8dda-92ad9eed938b'
+        '&zoom=20&mapToken=' + mapToken;
 };
