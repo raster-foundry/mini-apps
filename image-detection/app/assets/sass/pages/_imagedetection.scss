@@ -28,7 +28,7 @@ html, body {
 
 .main-app {
   .project--table {
-    max-width: 924px;
+    width: 924px;
     margin-left: auto;
     margin-right: auto;
     td, th {
@@ -54,7 +54,7 @@ html, body {
 }
 
 .main-container {
-  max-width: 924px;
+  width: 924px;
   margin-left: auto;
   margin-right: auto;
   padding-top: 2.4rem;
@@ -74,7 +74,7 @@ html, body {
   background-color: #F5F8FA;
   border-bottom: 1px solid #E2E2E2;
   .header-container {
-    max-width: 924px;
+    width: 924px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -309,10 +309,6 @@ tr:hover .button-group--status {
       color: #fff;
     }
   }
-}
-
-.card--projects {
-  // max-width: 924px;
 }
 
 .card--container {
