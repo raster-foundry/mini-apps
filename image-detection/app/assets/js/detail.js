@@ -37,8 +37,7 @@ $(function() {
                 var html = template(context);
                 // console.log(html);
                 projectsList.append(html);
-                var leafletMap = L.map('map-' + context.id, {attributionControl: false}).setView([51.505, -0.09], 13);
-                L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}').addTo(leafletMap);
+                var leafletMap = L.map('map-' + context.id, {attributionControl: false, zoomControl: false, scrollWheelZoom: false, touchZoom: false, doubleClickZoom: false, dragging: false}).setView([51.505, -0.09], 13);
                 var layer = L.geoJSON(y[0]);
                 var bounds = layer.getBounds();
                 layer.addTo(leafletMap);
