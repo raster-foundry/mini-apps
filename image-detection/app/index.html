@@ -90,21 +90,6 @@
 
 	<!-- scripts -->
     <script src="assets/js/vendor/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(function(){
-            var showTable = false;
-            $('.button-group:not(.button-group--status)').click(function() {
-                if (showTable) {
-                    $('#main-table').hide();
-                    $('#main-map').show();
-                } else {
-                    $('#main-map').hide();
-                    $('#main-table').show();
-                }
-                showTable = !showTable;
-            })
-        });
-    </script>
     <script src="assets/js/vendor/Chart.bundle.min.js"></script>
     <script src="assets/js/vendor/handlebars.min.js"></script>
     <script src="assets/js/vendor/leaflet.js"></script>

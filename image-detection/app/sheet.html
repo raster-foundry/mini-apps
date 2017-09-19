@@ -53,7 +53,7 @@
   		  <img src="assets/images/raster-foundry-symbol.svg">
   		</div>
 	  </header>
-    <main class="main-app" id="main-table">
+    <main class="main-app main-app--demo" id="main-table">
       <header class="project--secondaryheader">
         <div class="header-container">
           <div class="date">
@@ -77,32 +77,30 @@
           </div>
         </div>
       </header>
-      <div class="project--table">
-        <table id="table-list">
-          <tr>
-            <th>Chip</th>
-            <th>Score</th>
-            <th>Label</th>
-            <th>Description</th>
-            <th>Status</th>
-          </tr>
-            <script id="prediction--template" type="text/x-handlebars-template">
-              <tr>
-                <td><img src="{{ exportURL }}"></td>
-                <td>{{ score }}</td>
-                <td>{{ class_name }}</td>
-                <td class="description description--empty" href="#" id="description-{{ num }}" data-type="text" data-pk="1" data-title="Enter Notes">Notes</td>
-                <td>
-                  <div class="button-group button-group--status">
-                    <button class="button--miss"><i class="icon-cancel-1"></i><span class="button-text">Miss</span></button>
-                    <button class="button--notsure"><i class="icon-help"></i><span class="button-text">Not sure</span></button>
-                    <button class="button--match"><i class="icon-ok-1"></i><span class="button-text">Match</span></button>
-                    <div class="text"></div>
-                  </div>
-                </td>
-              </tr>
-            </script>
-        </table>
+      <div class="container--demo">
+        <div class="sidebar--demo card--container" id="table-list">
+          <script id="prediction--template" type="text/x-handlebars-template">
+            <div class="card--project">
+              <h2 class="card--heading">{{ class_name }}</h2>
+              <div class="card--stats">
+                <div class="card--stat">
+                  <div class="number">{{ score }}</div>
+                  <div class="label">Score</div>
+                </div>
+              </div>
+              <img src="{{ exportURL }}" style="max-width: 100%;">
+              <div class="button-group button-group--status">
+                <button class="button--miss"><i class="icon-cancel-1"></i><span class="button-text">Miss</span></button>
+                <button class="button--notsure"><i class="icon-help"></i><span class="button-text">Not sure</span></button>
+                <button class="button--match"><i class="icon-ok-1"></i><span class="button-text">Match</span></button>
+                <div class="text"></div>
+              </div>
+            </div>
+          </script>
+        </div>
+        <div class="map--demo">
+
+        </div>
       </div>
     </main>
 	  <!-- Navbar -->

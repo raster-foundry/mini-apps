@@ -12,6 +12,7 @@ html, body {
   flex-direction: column;
   overflow-x: hidden;
   min-width: 940px;
+  height: 100%;
 }
 
 .header--back {
@@ -28,9 +29,8 @@ html, body {
 
 .main-app {
   .project--table {
-    max-width: 924px;
-    margin-left: auto;
-    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
     td, th {
       padding: 6px 10px;
       &:last-of-type {
@@ -54,7 +54,7 @@ html, body {
 }
 
 .main-container {
-  max-width: 924px;
+  width: 876px;
   margin-left: auto;
   margin-right: auto;
   padding-top: 2.4rem;
@@ -74,11 +74,10 @@ html, body {
   background-color: #F5F8FA;
   border-bottom: 1px solid #E2E2E2;
   .header-container {
-    max-width: 924px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
-    padding: 1.4rem 0;
+    padding: 1.4rem 1rem;
   }
   button {
     background-color: $color-dark-2;
@@ -117,7 +116,7 @@ html, body {
 }
 
 .project--sidebar {
-  width: 300px;
+  width: 284px;
   padding: 10px;
   overflow-x: hidden;
   .icon-cancel-1 {
@@ -179,6 +178,7 @@ html, body {
 .button-group {
   display: flex;
   button {
+    cursor: pointer;
     &:first-of-type {
       border-radius: 2px 0 0 2px;
     }
@@ -212,16 +212,6 @@ tr:hover .button-group--status {
 
 .button-group--status {
   width: 100px;
-  .text {
-    text-align: right;
-    width: 100%;
-    &:after {
-      content: "Undecided";
-    }
-  }
-  button {
-    display: none;
-  }
   &.selected--miss {
     button {
       display: none;
@@ -292,8 +282,9 @@ tr:hover .button-group--status {
       margin-left: 5px;
     }
     &.button--miss {
-      background-color: #FF0043;
-      color: #fff;
+      color: #FF0043;
+      background-color: #fff;
+      border: 1px solid #ccc;
       position: relative;
       .button-text {
         top: 3px;
@@ -301,18 +292,22 @@ tr:hover .button-group--status {
       }
     }
     &.button--notsure {
-      background-color: #777777;
-      color: #fff;
+      color: #777777;
+      background-color: #fff;
+      border: 1px solid #ccc;
     }
     &.button--match {
-      background-color: #0FAE5C;
-      color: #fff;
+      color: #0FAE5C;
+      background-color: #fff;
+      border: 1px solid #ccc;
+    }
+    &:first-of-type {
+      border-right: 0;
+    }
+    &:last-of-type {
+      border-left: 0;
     }
   }
-}
-
-.card--projects {
-  // max-width: 924px;
 }
 
 .card--container {
@@ -329,7 +324,7 @@ tr:hover .button-group--status {
   border-radius: 2px;
   cursor: pointer;
   transition: .2s cubic-bezier(.91,.8,.54,1) all;
-  width: 300px;
+  width: 284px;
   margin: $gutter-width;
   padding: 1.4rem;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
@@ -369,7 +364,7 @@ tr:hover .button-group--status {
       border-left: 0;
     }
     .number {
-      font-weight: 500;
+      font-weight: 600;
       display: inline-block;
       font-size: $font-size-h5;
       color: $color-primary;
@@ -378,6 +373,7 @@ tr:hover .button-group--status {
     .label {
       display: inline-block;
       font-size: $font-size-h6;
+      color: #777;
     }
   }
 }
@@ -424,6 +420,47 @@ tr:hover .button-group--status {
   }
 }
 
+.card--heading + .card--stats {
+  margin-top: -8px;
+}
+
+#table-list {
+  .card--project:hover {
+    box-shadow: 0 0 3px rgba(0,0,0,.2) !important;
+    transform: translateY(0);
+    cursor: default;
+  }
+  .button-group--status {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    margin-bottom: -0.3rem;
+  }
+  .card--heading {
+    text-transform: capitalize;
+  }
+}
+
+.sidebar--demo {
+  overflow: auto;
+  padding: 0.6rem 0 0.6rem 1rem;
+}
+
+.container--demo {
+  display: flex;
+}
+
+.main-app--demo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.map--demo {
+  background-color: #ccc;
+  min-width: 30%;
+}
+
 .project--chart {
   .chart {
     width: 100%;
@@ -444,7 +481,7 @@ tr:hover .button-group--status {
       border-left: 0;
     }
     .number {
-      font-weight: 500;
+      font-weight: 600;
       display: block;
       font-size: 3.0rem;
       color: $color-primary;
@@ -480,11 +517,9 @@ tr:hover .button-group--status {
 .card--chart {
   height: 100px;
   width: 100%;
-  background-color: #ddd;
 }
 
 .card--map {
-  height: 272px;
+  height: 256px;
   width: 100%;
-  background-color: #ddd;
 }
