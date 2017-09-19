@@ -12,6 +12,7 @@ html, body {
   flex-direction: column;
   overflow-x: hidden;
   min-width: 940px;
+  height: 100%;
 }
 
 .header--back {
@@ -442,15 +443,17 @@ tr:hover .button-group--status {
 
 .sidebar--demo {
   overflow: auto;
+  padding: 0.6rem 0 0.6rem 1rem;
 }
 
 .container--demo {
   display: flex;
-  max-height: calc(100vh - 106px); // TODO: make this work without calc
 }
 
 .main-app--demo {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .map--demo {
