@@ -131,10 +131,10 @@ button {
   color: white;
   border: none;
   cursor: pointer;
-  &:active, &:hover {
-    background: darken(#465076, 0.5);
+  &:active, &:hover, &:focus {
+    background: darken(#465076, 10%);
+    outline: none;
   }
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 .showing {
   border-radius: 5px 5px 0 0;
@@ -146,12 +146,12 @@ button {
   right: 0;
   transform: translateY(100%);
   border-radius: 5px 0 5px 5px;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
   padding: .5em .5em 0 .5em;
 }
 .picker-option-item {
   width: 12em;
-  height: 4em;
+  height: 3em;
+  border-radius: 2px;
   margin-bottom: .5em;
   cursor: pointer;
 }

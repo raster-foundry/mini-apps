@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <img alt="Raster Foundry" class="logo" src="./assets/raster-foundry-logo.png">
+    <a href="https://www.rasterfoundry.com" target="_blank"><img alt="Raster Foundry" class="logo" src="./assets/raster-foundry-logo.svg"></a>
   </div>
 </template>
 
@@ -36,12 +36,10 @@ html {
   position: absolute;
   bottom: 0;
   left: 0;
-  margin: 1em;
-  user-select: none;
-  pointer-events: none;
-  height: 5vh;
-  min-height: 1em;
-  padding: 0.5em;
-  background-color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+  height: 35px;
+  padding: 8px 15px 3px;
+  background-color: rgba(70, 80, 118, 1);
+  border-radius: 0 4px 0 0;
 }
 </style>
