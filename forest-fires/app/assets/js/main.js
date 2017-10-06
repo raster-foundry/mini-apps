@@ -39,7 +39,7 @@ var createMap = function() {
         {style: natGasPipelinesStyle}
     );
 
-    var map = L.map('map').setView([50.8212, -121.35], 12);
+    var map = L.map('map').setView([49.5668, -120.5362], 13);
 
     // Add the created layer to the Map
     map.addLayer(hereLayer);
