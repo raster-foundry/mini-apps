@@ -2,6 +2,9 @@
     "name": "mantle",
     "version": "0.1.0",
     "description": "Azavea's front end framework for GIS applications",
+    "scripts": {
+      "build": "./node_modules/.bin/grunt build"
+    },
     "devDependencies": {
         "autoprefixer": "^6.3.6",
         "cssnano": "^3.5.2",
