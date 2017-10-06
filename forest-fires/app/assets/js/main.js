@@ -1,8 +1,8 @@
 // Common Settings
 
-var toolNdviBeforeNode = 'a4d3b166-7dda-4eb4-bfd1-d1d42400b15e';
-var toolNdviAfterNode = 'd0029397-e300-4c9a-af71-21ad3f2224ec';
-var toolNdviDifferenceNode = '01f88817-acd7-4bbd-93cb-6fdd253e9c83';
+var toolNdviBeforeNode = 'a1460c96-8377-4bf1-aad4-18a6e47093c6';
+var toolNdviAfterNode = '722519bc-3312-4c35-924b-9f1a155f83ec';
+var toolNdviDifferenceNode = '875f9059-2b87-49d4-8d2a-3ecc47d4b14d';
 
 // Get Map - Add Difference Layers
 
@@ -39,7 +39,7 @@ var createMap = function() {
         {style: natGasPipelinesStyle}
     );
 
-    var map = L.map('map').setView([50.8212, -121.35], 13);
+    var map = L.map('map').setView([50.8212, -121.35], 12);
 
     // Add the created layer to the Map
     map.addLayer(hereLayer);
@@ -61,7 +61,7 @@ var createMap = function() {
 var getToolRunTileNode = function(nodeId, toolRunId, mapToken, colorRamp, bounds) {
     var url = 'https://tiles.rasterfoundry.com/tiles/tools/' +
             toolRunId + '/{z}/{x}/{y}?mapToken=' +
-            mapToken + '&node=' + nodeId + '&cramp=' + colorRamp;
+            mapToken + '&node=' + nodeId;
 
     return L.tileLayer(url, {bounds: bounds, errorTileUrl: '/assets/images/empty.png'});
 };
