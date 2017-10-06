@@ -1,0 +1,23 @@
+.logo {
+  margin: 0;
+  color: #fff;
+  padding: 0.7rem 1.5rem;
+
+  img {
+    max-height: 4.4rem;
+    vertical-align: middle;
+
+    @media (max-width: 900px) {
+      max-height: 3.3rem;
+    }
+  }
+
+  span {
+    vertical-align: middle;
+  }
+
+  .h4 {
+    color: #fff;
+    font-weight: 600;
+  }
+}

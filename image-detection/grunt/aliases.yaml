@@ -1,0 +1,12 @@
+default:
+  - 'sass'
+  - 'postcss'
+  - 'browserSync'
+  - 'watch'
+
+build:
+  - 'clean:dist'
+  - 'sass:dist'
+  - 'postcss:dist'
+  - 'copy:dist'
+  - 'cacheBust:dist'
