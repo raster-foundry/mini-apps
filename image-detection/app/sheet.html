@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="/assets/images/favicon.ico?" type="image/x-icon">
+
+  <title>Raster Foundry — Object Detection</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700|Titillium+Web:400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0/dist/leaflet.css"/>
+  <link rel="stylesheet" href="assets/css/fontello.css">
+  <link rel="stylesheet" href="assets/css/jquery-editable.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="assets/images/favicon/manifest.json">
+  <link rel="mask-icon" href="assets/images/favicon/safari-pinned-tab.svg" color="#464f77">
+  <meta name="theme-color" content="#353b59">
+
+  <!-- Heap analytics -->
+  <script type="text/javascript">
+      window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+      heap.load("2839226139");
+  </script>
+
+  <!-- Google analytics -->
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-970854-25', 'auto');
+      ga('send', 'pageview');
+  </script>
+</head>
+<body>
+<div class="app-container">
+  <!-- Navbar -->
+  <header class="main-nav">
+    <div class="nav-section secondary">
+      Demo User
+    </div>
+    <div class="nav-section projectname">
+      Object Detection and Anomaly Alerts
+    </div>
+    <div class="nav-section primary">
+      <img src="assets/images/raster-foundry-symbol.svg">
+    </div>
+  </header>
+  <main class="main-app main-app--demo" id="main-table">
+    <header class="project--secondaryheader">
+      <div class="header-container">
+          <!-- <div id="date-setting" class="date">
+               April 3, 2017
+               </div> -->
+        <select name="" id="" class="filter">
+          <option value="All">All</option>
+          <option value="All">Miss</option>
+          <option value="All">Not sure</option>
+          <option value="All">Match</option>
+        </select>
+        <button>More filters</button>
+        <div class="results" id="num-images">
+          <script id="num-images--template" type="text/x-handlebars-template">
+            <span>Showing {{ numImages }} of {{ numImages }} objects<span>
+          </script>
+        </div>
+        <div class="button-group">
+          <button class="active"><i class="icon-list"></i></button>
+          <button><i class="icon-location"></i></button>
+        </div>
+      </div>
+    </header>
+    <div class="container--demo">
+      <div class="sidebar--demo card--container" id="table-list">
+        <script id="prediction--template" type="text/x-handlebars-template">
+          <div id="card--{{id}}" class="x card--project">
+            <h2 class="card--heading">{{ class_name }}</h2>
+            <div class="card--stats">
+              <div class="card--stat">
+                <div class="number">{{ score }}</div>
+                <div class="label">Score</div>
+              </div>
+            </div>
+            <img src="{{ exportURL }}" data-bbox="{{bbox}}" style="max-width: 100%;">
+            <div class="button-group button-group--status">
+              <button class="button--miss"><i class="icon-cancel-1"></i><span class="button-text">Miss</span></button>
+              <button class="button--notsure"><i class="icon-help"></i><span class="button-text">Not sure</span></button>
+              <button class="button--match"><i class="icon-ok-1"></i><span class="button-text">Match</span></button>
+              <div class="text"></div>
+            </div>
+          </div>
+        </script>
+      </div>
+      <div id="map" class="map--demo">
+
+      </div>
+    </div>
+  </main>
+  <!-- Navbar -->
+</div>
+
+<!-- scripts -->
+<script src="assets/js/vendor/jquery.min.js"></script>
+
+<script src="assets/js/vendor/handlebars.min.js"></script>
+<script src="assets/js/vendor/underscore-min.js"></script>
+<script src="assets/js/vendor/jquery.poshytip.min.js"></script>
+<script src="assets/js/vendor/jquery-editable-poshytip.min.js"></script>
+<script src="assets/js/vendor/leaflet.js"></script>
+<script src="assets/js/vendor/turf.min.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/sheet.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var showTable = false;
+        $('.button-group:not(.button-group--status)').click(function() {
+            if (showTable) {
+                $('#main-table').hide();
+                $('#main-map').show();
+            } else {
+                $('#main-map').hide();
+                $('#main-table').show();
+            }
+            showTable = !showTable;
+        })
+
+    });
+</script>
+</body>
+</html>
