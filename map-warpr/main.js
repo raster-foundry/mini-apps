@@ -82,8 +82,43 @@ $(document).ready(function () {
         console.log('Image:', image.width, 'x', image.height);
 
         layerGroup.clearLayers();
-        getControlPoints(imageLayer).forEach(function (point) {
+        var controlPoints = getControlPoints(imageLayer);
+        console.log(controlPoints);
+        controlPoints.map(function (gcp) {
+            return gcp.getLatLng();
+        }).forEach(function (point) {
             layerGroup.addLayer(L.marker(point));
+        });
+
+        var translateArgs =
+        loam.open(file).then(function (ds) {
+            var convertArgs = ['-of', 'GTiff'];
+            var gcpArgs = controlPoints.map(function (gcp) {
+                return gcp.toCLIArgArray();
+            }).reduce(function (accum, x) {
+                x.forEach(function (val) { accum.push(val); });
+                return accum;
+            }, []);
+            convertArgs = convertArgs.concat(gcpArgs);
+            console.log('GDAL translate: ', convertArgs.join(' '));
+            return ds.convert(convertArgs);
+        }).then(function (ds) {
+            var warpArgs = [
+                '-r',
+                'near',
+                '-tps',
+                '-s_srs',
+                'EPSG:4326',
+                '-t_srs',
+                'EPSG:4326'
+            ];
+            console.log('GDAL warp: ', warpArgs.join(' '));
+            return ds.warp(warpArgs);
+        }).then(function (ds) {
+            console.log('GDAL close');
+            return ds.closeAndReadBytes();
+        }).then(function (bytes) {
+            console.log('Output file size: ', bytes.length);
         });
     }
 
@@ -101,15 +136,15 @@ $(document).ready(function () {
         midpointWest = lineMidpoint(nw, sw);
 
         return [
-            ne,
-            nw,
-            se,
-            sw,
-            midpointEast,
-            midpointWest,
-            lineMidpoint(ne, nw),
-            lineMidpoint(se, sw),
-            lineMidpoint(midpointEast, midpointWest)
+            new ControlPoint(0, 0, ne),
+            new ControlPoint(width, 0, nw),
+            new ControlPoint(0, height, se),
+            new ControlPoint(width, height, sw),
+            new ControlPoint(0, height / 2, midpointEast),
+            new ControlPoint(width, height / 2, midpointWest),
+            new ControlPoint(width / 2, 0, lineMidpoint(ne, nw)),
+            new ControlPoint(width / 2, height, lineMidpoint(se, sw)),
+            new ControlPoint(width / 2, height / 2, lineMidpoint(midpointEast, midpointWest))
         ];
 
         // Takes two Leaflet LatLng and returns the LatLng of the midpoint along the line
@@ -131,13 +166,20 @@ $(document).ready(function () {
     }
 });
 
-function ControlPoint(pixel, line, latLng) {
-    this.pixel = pixel;
-    this.line = line;
-    this.x = latLng.lng;
-    this.y = latLng.lat;
+class ControlPoint {
 
-    this.toCLIArgString = function () {
-        return [this.pixel, this.line, this.x, this.y].join(' ');
+    constructor(pixel, line, latLng) {
+        this.pixel = pixel;
+        this.line = line;
+        this.x = latLng.lng;
+        this.y = latLng.lat;
+    }
+
+    getLatLng() {
+        return L.latLng([this.y, this.x]);
+    }
+
+    toCLIArgArray() {
+        return ['-gcp', this.pixel, this.line, this.x, this.y];
     }
 }
