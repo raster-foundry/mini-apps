@@ -8,6 +8,8 @@ $(document).ready(function () {
 
     var file;
     var imageLayer;
+    var layerGroup = L.layerGroup([]);
+    layerGroup.addTo(map);
 
     var $inputElement = $('#image-upload');
     $inputElement.on('change', handleFiles);
@@ -68,6 +70,7 @@ $(document).ready(function () {
         $inputElement.val('');
         file = undefined;
         deleteImageLayer();
+        layerGroup.clearLayers();
     }
 
     function warpImage() {
@@ -77,6 +80,11 @@ $(document).ready(function () {
         console.log(imageLayer.getCorners());
         var image = imageLayer._image;
         console.log('Image:', image.width, 'x', image.height);
+
+        layerGroup.clearLayers();
+        getControlPoints(imageLayer).forEach(function (point) {
+            layerGroup.addLayer(L.marker(point));
+        });
     }
 
     // Return array of control points
@@ -85,25 +93,51 @@ $(document).ready(function () {
         var width = imageLayer._image.width;
         var height = imageLayer._image.height;
         var corners = imageLayer.getCorners();
+        var ne = corners[0];
+        var nw = corners[1];
+        var se = corners[2];
+        var sw = corners[3];
+        midpointEast = lineMidpoint(ne, se);
+        midpointWest = lineMidpoint(nw, sw);
 
-        return [{
-            pixel: 0,
-            line: 0,
-            x: 0,
-            y: 0
-        }, {
-            pixel: 1,
-            line: 1,
-            x: 10,
-            y: 10
-        }];
+        return [
+            ne,
+            nw,
+            se,
+            sw,
+            midpointEast,
+            midpointWest,
+            lineMidpoint(ne, nw),
+            lineMidpoint(se, sw),
+            lineMidpoint(midpointEast, midpointWest)
+        ];
 
-        function latLngAtPixel(xRatio, yRatio, image, latLngCorners) {
-            // Calculate lat/lng at a particular spot on the image
-            // Must account for non-rectangular images
-            // Use turf.js distance() + along()?
-            return [0, 0];
+        // Takes two Leaflet LatLng and returns the LatLng of the midpoint along the line
+        // Easy to extend to arbitrary distances along the line between the points
+        function lineMidpoint(point1, point2, alongPct) {
+            if (!alongPct) {
+                alongPct = 0.5;
+            }
+            // Could also calculate with turf.js distance()
+            var distanceMeters = point1.distanceTo(point2);
+            var distanceKm = distanceMeters / 1000;
+            var distanceAlong = distanceKm * alongPct;
+            var from = [point1.lng, point1.lat];
+            var to = [point2.lng, point2.lat];
+            var line = turf.lineString([from, to]);
+            var midpoint = turf.along(line, distanceAlong, {units: 'kilometers'});
+            return L.latLng(midpoint.geometry.coordinates[1], midpoint.geometry.coordinates[0]);
         }
-
     }
 });
+
+function ControlPoint(pixel, line, latLng) {
+    this.pixel = pixel;
+    this.line = line;
+    this.x = latLng.lng;
+    this.y = latLng.lat;
+
+    this.toCLIArgString = function () {
+        return [this.pixel, this.line, this.x, this.y].join(' ');
+    }
+}
