@@ -25,6 +25,8 @@ $(document).ready(function () {
         if (!(files && files.length)) { return; }
         file = files[0];
 
+        loam.initialize();
+
         fileToImage(file).then(function(image) {
             setupImageLayer(image);
         });
