@@ -96,8 +96,9 @@ $(document).ready(function () {
             layerGroup.addLayer(L.marker(point));
         });
 
-        var translateArgs =
+        var datasetOpen, datasetTranslate;
         loam.open(file).then(function (ds) {
+            datasetOpen = ds;
             var convertArgs = ['-of', 'GTiff'];
             var gcpArgs = controlPoints.map(function (gcp) {
                 return gcp.toCLIArgArray();
@@ -109,6 +110,7 @@ $(document).ready(function () {
             console.log('GDAL translate: ', convertArgs.join(' '));
             return ds.convert(convertArgs);
         }).then(function (ds) {
+            datasetTranslate = ds;
             var warpArgs = [
                 '-r',
                 'near',
@@ -132,6 +134,9 @@ $(document).ready(function () {
             var filename = oldFileName + '-warped.tif';
             saveAs(blob, filename);
         }).finally(function () {
+            // Manually close intermediate datasets to release memory
+            if (datasetOpen) { datasetOpen.close(); }
+            if (datasetTranslate) { datasetTranslate.close(); }
             setEngageButtonState(true);
         });
     }
