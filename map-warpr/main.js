@@ -119,6 +119,12 @@ $(document).ready(function () {
             return ds.closeAndReadBytes();
         }).then(function (bytes) {
             console.log('Output file size: ', bytes.length);
+            // bytes is a UInt8Array
+            var blob = new Blob([bytes], {type: 'image/tiff'});
+            var oldFileName = file.name.lastIndexOf('.') === -1 ?
+                file.name : file.name.slice(0, file.name.lastIndexOf('.'));
+            var filename = oldFileName + '-warped.tif';
+            saveAs(blob, filename);
         });
     }
 
