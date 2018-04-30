@@ -30,6 +30,10 @@ $(document).ready(function () {
         });
     }
 
+    function setEngageButtonState(isEnabled) {
+        $warpButton.prop('disabled', !isEnabled);
+    }
+
     function fileToImage(fileBlob) {
         var dfd = $.Deferred();
         var img = new Image();
@@ -76,6 +80,8 @@ $(document).ready(function () {
     function warpImage() {
         // https://gis.stackexchange.com/questions/181292/failed-gdal-script-from-qgis-georeferencer-using-thin-plate-spline-tps
         if (!imageLayer) { return; }
+
+        setEngageButtonState(false);
 
         console.log(imageLayer.getCorners());
         var image = imageLayer._image;
@@ -125,6 +131,8 @@ $(document).ready(function () {
                 file.name : file.name.slice(0, file.name.lastIndexOf('.'));
             var filename = oldFileName + '-warped.tif';
             saveAs(blob, filename);
+        }).finally(function () {
+            setEngageButtonState(true);
         });
     }
 
