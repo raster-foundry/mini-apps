@@ -180,6 +180,12 @@ class ControlPoint {
     }
 
     toCLIArgArray() {
-        return ['-gcp', this.pixel, this.line, this.x, this.y];
+        return [
+            '-gcp',
+            this.pixel.toString(),
+            this.line.toString(),
+            this.x.toString(),
+            this.y.toString()
+        ];
     }
 }
