@@ -9,12 +9,12 @@ This is a mini app intended to demonstrate usage of [gdal.js](https://github.com
 
 Start a local dev server with it's root set to the `src` directory, optionally changing the default port:
 ```
-cd src && python3 -m http.server 7777
+python3 -m http.server 7777
 # OR
-cd src && python2 -m SimpleHTTPServer 7777
+python2 -m SimpleHTTPServer 7777
 # OR
 npm install -g http-server
-http-server -p 7777 ./src
+http-server -p 7777 .
 ```
 
 And then visit localhost with the specified port, e.g. http://localhost:7777
