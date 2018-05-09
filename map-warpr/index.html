@@ -4,37 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MapWarpr</title>
+    <title>Map Warper by Raster Foundry</title>
 
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./assets/favicon/site.webmanifest">
+    <link rel="mask-icon" href="./assets/favicon/safari-pinned-tab.svg" color="#00ff91">
+    <link rel="shortcut icon" href="./assets/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#161724">
+    <meta name="msapplication-config" content="./assets/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
     <link rel="stylesheet" href="lib/leaflet.toolbar.min.css">
     <link rel="stylesheet" href="lib/leaflet.distortableimage.css">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=EB+Garamond:400,500|Rajdhani:400,500" rel="stylesheet">
 </head>
 <body>
-    <main>
-        <header>
-            <div>
-                <h1>Map Warpr</h1>
-                <button id="button-warp">ENGAGE!</button>
-            </div>
-            <div class="warpr-image-upload">
-                <label for="image-upload">Upload an image:</label>
-                <input type="file" id="image-upload">
-                <button id="button-reset">Reset</button>
-            </div>
-        </header>
-        <div id="map"></div>
-    </main>
+  
+<div class="app">
+  <div class="overlay">
+    <div class="scanlines"></div>
+  </div>
+  <img class="logo" src="assets/images/map-warper-logo.png" alt="">
+  <div class="helix"></div>
+  <div class="dash-pattern top"></div>
+  <div class="dash-pattern bottom"></div>
+  <div class="app-container">
+    <div class="basemap-switcher">
+      <button class="btn" id="basemap-switcher">Activate satellite map</button>
+    </div>
+    <div class="animation-toggler">
+      <button class="btn" id="boring-mode-button">Boring mode</button>
+    </div>
+    <div class="map">
+      <div id="map"></div>
+    </div>
+    <div class="sidebar">
+      <div class="image-upload btn btn-block">
+        <input type="file" id="image-upload">
+        Upload imagery
+      </div>
+      <div class="panel imagery-panel">
+        <div class="panel-header">
+          Imagery
+        </div>
+        <div class="panel-body">
+          <ul class="image-list">
+            <li class="welcome-message">
+              ––––– WELCOME USER  –––––
+              <p>SYSTEM READY TO RECEIVE IMAGERY</p>
+              <p class="blink">*** BEGIN UPLOAD NOW ***</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          Info
+        </div>
+        <div class="panel-body">
+          <dl>
+            <dt>Name</dt>
+            <dd>
+              <div>(W)eb</div>
+              <div>(A)ssisted</div>
+              <div>(R)ectification </div>
+              <div>(P)rotocol for</div>
+              <div>(R)asters</div>
+            </dd>
+            <dt>Version</dt>
+            <dd>WARPR v14.12.2</dd>
+            <dt>Status</dt>
+            <dd>healthy</dd>
+            <br>
+            <dt>Author</dt>
+            <dd><a href="https://rasterfoundry.com">Raster Foundry</a></dd>
+          </dl>
+        </div>
+      </div>
+      <button class="btn btn-block" id="button-warp">Engage export sequence</button>
+    </div>
+  </div>
+</div>
+<div class="boot-screen">
+  <div class="boot-sequence">
+    <h1 class="boot-sequence-text">WARPR BOOT INITIATED</h1>
+    <button class="btn" id="js-fast-boot" onclick="endBoot()">FAST BOOT</button>
+    <div class="outter-circle">
+      <svg class="white-circle" viewBox="0 0 708 702" xmlns="http://www.w3.org/2000/svg">
+        <path d="M354 701c194.957 0 353-158.043 353-353S548.957-5 354-5 1 153.043 1 348s158.043 353 353 353z" stroke-width="2" fill="none" stroke-dasharray="80 160"/>
+      </svg>
+    </div>
+    <div class="inner-circle">
+      <svg class="white-circle" viewBox="0 0 708 702" xmlns="http://www.w3.org/2000/svg">
+        <path d="M354 701c194.957 0 353-158.043 353-353S548.957-5 354-5 1 153.043 1 348s158.043 353 353 353z" stroke-width="4" fill="none" stroke-dasharray="80 160"/>
+      </svg>
+      <svg class="green-circle" viewBox="0 0 708 702" xmlns="http://www.w3.org/2000/svg">
+        <path d="M354 701c194.957 0 353-158.043 353-353S548.957-5 354-5 1 153.043 1 348s158.043 353 353 353z" stroke-width="3" fill="none" stroke-dasharray="20 60 10"/>
+      </svg>
+    </div>
+  </div>
+  <div id="loading" class="loading-percent">00%</div>
+  <div id="console" class="console"></div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
-    <script src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
-    <script src="lib/leaflet.toolbar.min.js"></script>
-    <script src="lib/leaflet.distortableimage.js"></script>
-    <script src="lib/loam.min.js"></script>
-    <script src="main.js"></script>
+<svg style="display: none;">
+  <defs>
+    <path d="M14.2 9.1a2.1 2.1 0 1 1-4.2 0 2.1 2.1 0 0 1 4.2 0zm4.2 2.1a2.1 2.1 0 1 0 0-4.2 2.1 2.1 0 0 0 0 4.2zm-6.3 2.1a2.1 2.1 0 0 0 0 4.199 2.099 2.099 0 1 0 0-4.2zm6.3 4.199a2.1 2.1 0 1 0-.002-4.198 2.1 2.1 0 0 0 .002 4.198zm-6.3 2.1a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2zm6.3 0a2.1 2.1 0 1 0-.001 4.2 2.1 2.1 0 0 0 0-4.2z" id="icon-gripper"/>
+
+    <path d="M15.666 16.62c.553.554.553 1.45 0 2.003-.089.09-.19.159-.293.22v1.611c0 .425-.283.708-.708.708s-.708-.283-.708-.708v-1.611a1.421 1.421 0 0 1-.293-.22 1.416 1.416 0 1 1 2.002-2.002zm3.248 4.542a1.42 1.42 0 0 1-1.417 1.417h-5.665a1.42 1.42 0 0 1-1.416-1.417v-4.956a1.42 1.42 0 0 1 1.416-1.417h5.665a1.42 1.42 0 0 1 1.417 1.417v4.956zm-1.417-7.789h-5.664V11.25a2.84 2.84 0 0 1 2.832-2.833 2.84 2.84 0 0 1 2.832 2.833c0 .425.284.708.709.708.424 0 .708-.283.708-.708 0-2.338-1.841-4.25-4.249-4.25a4.261 4.261 0 0 0-4.249 4.249v2.52A2.827 2.827 0 0 0 9 16.206v4.956a2.84 2.84 0 0 0 2.832 2.833h5.665a2.84 2.84 0 0 0 2.833-2.833v-4.956a2.84 2.84 0 0 0-2.833-2.833z" id="icon-unlock"/>
+    
+    <path d="M15.666 16.62c.553.554.553 1.45 0 2.003-.089.09-.19.159-.293.22v1.611c0 .425-.283.708-.708.708s-.708-.283-.708-.708v-1.611a1.421 1.421 0 0 1-.293-.22 1.416 1.416 0 1 1 2.002-2.002zm3.248 4.542a1.42 1.42 0 0 1-1.417 1.417h-5.665a1.42 1.42 0 0 1-1.416-1.417v-4.956a1.42 1.42 0 0 1 1.416-1.417h5.665a1.42 1.42 0 0 1 1.417 1.417v4.956zm-7.082-9.913a2.84 2.84 0 0 1 2.833-2.833 2.84 2.84 0 0 1 2.832 2.833v2.124h-5.665V11.25zm7.082 2.52v-2.52C18.914 8.912 17.073 7 14.665 7a4.261 4.261 0 0 0-4.249 4.249v2.52A2.827 2.827 0 0 0 9 16.206v4.956a2.84 2.84 0 0 0 2.832 2.833h5.665a2.84 2.84 0 0 0 2.833-2.833v-4.956c0-1.04-.575-1.945-1.416-2.437z" id="icon-lock"/>
+    
+    <path d="M14.99 22.996a7.754 7.754 0 0 1-3.107-.631 8.116 8.116 0 0 1-2.55-1.72 8.035 8.035 0 0 1-1.71-2.54A7.777 7.777 0 0 1 7 15.006c0-1.107.208-2.145.623-3.114A8.025 8.025 0 0 1 9.334 9.35a8.122 8.122 0 0 1 2.55-1.72A7.752 7.752 0 0 1 14.99 7c1.096 0 2.132.21 3.106.631a8.18 8.18 0 0 1 2.55 1.711 7.922 7.922 0 0 1 1.71 2.541 7.87 7.87 0 0 1 .624 3.123 7.775 7.775 0 0 1-.623 3.098 8.025 8.025 0 0 1-1.711 2.541 8.122 8.122 0 0 1-2.55 1.72c-.974.42-2.01.63-3.106.63zm.996-13.92v1.927a.47.47 0 0 1-.15.357.492.492 0 0 1-.348.141h-.997a.47.47 0 0 1-.357-.15.492.492 0 0 1-.141-.348V9.076c-.62.11-1.207.31-1.76.598a5.834 5.834 0 0 0-1.47 1.08 6.345 6.345 0 0 0-1.08 1.47 5.555 5.555 0 0 0-.59 1.769h1.893a.484.484 0 0 1 .499.498v.98a.47.47 0 0 1-.15.358.49.49 0 0 1-.349.14h-1.91c.1.631.296 1.221.59 1.77a6.343 6.343 0 0 0 1.08 1.47c.426.432.913.791 1.461 1.079a6.025 6.025 0 0 0 1.769.598v-1.893a.47.47 0 0 1 .15-.358.492.492 0 0 1 .348-.14h.997a.47.47 0 0 1 .357.149c.094.1.141.216.141.349v1.91a6.115 6.115 0 0 0 3.239-1.678 6.037 6.037 0 0 0 1.08-1.47 5.67 5.67 0 0 0 .58-1.77h-1.877a.484.484 0 0 1-.498-.497v-.98a.47.47 0 0 1 .15-.358.492.492 0 0 1 .348-.141h1.894a5.7 5.7 0 0 0-.581-1.77 6.033 6.033 0 0 0-1.08-1.47 6.147 6.147 0 0 0-1.478-1.087 5.965 5.965 0 0 0-1.76-.606z" id="icon-crosshair"/>
+    
+    <path d="M0 0l17 6.8-6.8 3.4L8.5 17z" id="icon-location"/>
+  </defs>
+</svg>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+<script src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+<script src="lib/leaflet.toolbar.min.js"></script>
+<script src="lib/leaflet.distortableimage.js"></script>
+<script src="lib/loam.min.js"></script>
+<script src="./assets/javascript/ui.js"></script>
+<script src="./assets/javascript/main.js"></script>
 </body>
 </html>
