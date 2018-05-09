@@ -2133,7 +2133,7 @@ body {
 
 .app-container {
   position: absolute;
-  top: 65px;
+  top: 45px;
   bottom: 45px;
   left: 30px;
   right: 30px;
@@ -2262,6 +2262,16 @@ body {
 }
 .panel-body dd {
   margin: 0 0 6px;
+}
+
+.panel-body a,
+.panel-body a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+.panel-body a:hover {
+  text-decoration: underline;
 }
 
 .image-upload {
@@ -2517,4 +2527,9 @@ body {
   background: #e6e8ea;
   color: blue;
   border-color: blue;
+}
+
+.boring-mode .panel-body a,
+.boring-mode .panel-body a:visited {
+  color: blue;
 }
