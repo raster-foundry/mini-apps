@@ -201,7 +201,7 @@ L.LockHandle = L.EditHandle.extend({
 	options: {
 		TYPE: 'lock',
 		icon: new L.Icon({ 
-			iconUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA3ElEQVR4nM3TMU4CQRSH8d8qJ6AgFia2xksYkj0AhVa2JhRGbfEENJyA3oIjUHkFG42tHUE08QAGC8YwjG8LQsOrdnfm+/Y/7+1WdV3bpQ52ogPBJW6CfUcY4aRcaGXX1xijwjEeMvgJp7jAOd6jBKMEwwDDApYS3DYdoY+f7H6AlwyGt/SiUDDBVSFpF3AXsybBn+TO//qK4EjQEU+hjfvg+YagY9Wws2ijdWMbBdMCfk1pysZuJMy/g48C7mKOTzziEEssmhL0UornDGY9nW+rUU9yQbV3P9PW9QuPNylUonujQAAAAABJRU5ErkJggg%3D%3D',
+			iconUrl: '../assets/images/lock-handle.png',
 			iconSize: [16, 16],
 			iconAnchor: [8, 8]}
 		)
@@ -221,9 +221,9 @@ L.DistortHandle = L.EditHandle.extend({
 	options: {
 		TYPE: 'distort',
 		icon: new L.Icon({
-			iconUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGDSURBVFhHxZeBcYMwDEVp50j3aAbJIFmkg7R7NN0j2aPV4yLuV9hgE5v8u59wPpDk749lXoY6nIxH47vxzXgwOi7Gm/HrzmYgyafxt5I8owVuwocxFbyGxKgGlV+NMRhjZyPLEGfH8sCUWt/GYjUIHpPXypkrhNiLIEl8iGBbgVoai4ktTgSp9ObVigsQFeU6iWi4FskdxNLYM2NG6ZGuNVhKzfFvKdQwXPdCNo8PwkdMt4ao9AiVpufsHWrI0ys/RkfTPTwDNeCRAhbfyw74uf8DmtokB9wD6oMr7VgT17bnrZhysgRPBQVwiHDs7YexAN2bOeX0hr51FwqYuXJHjOrrRpTtVA2h2/Gkhg/Anj7QycIJ2SbRGNk8sUmoUVohno5mSj/1QOLQTgVbFBGTc+zLAlliEY+cjqLp4KrJY8UQw9T4giRqOMjEihUlgJ6QnV5ILIb7CY5aUUHI2OrMU4jG3MKs4UqRkrOEPLM66y2f59Ald7CnIzN9hc/0wqPdMPwBdf7pAA7sppsAAAAASUVORK5CYII=',
-			iconSize: [32, 32],
-			iconAnchor: [16, 16]}
+			iconUrl: '../assets/images/resize-handle.png',
+			iconSize: [16, 16],
+			iconAnchor: [8, 8]}
 		)
 	},
 
@@ -242,7 +242,7 @@ L.RotateHandle = L.EditHandle.extend({
 	options: {
 		TYPE: 'rotate',
 		icon: new L.Icon({ 
-			iconUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABG0lEQVR4nKXSvS5EURTF8d8V/SBBr9F7A4zGNy9AQytRKIaCgkQhehrzAmZ8hUI8wYxHmJ7CjCcYxT0nublmJlecZueerPXf69y9k0a57D9nqMfdJI7QRBtfaKCC8bw4ySVYww1G+jRsYwsPvRKsohbMT5jHKMawgOfwfYeVPGACVSQ4xDLe0AldX7GI46CpxudEwE7o/IizPvHhBC8hyU4WsBnq5QBzPBdZTwRMhfpeANDMeiIgCbVbABA1SRbQCnWmACBqWllALdS9AoD9rCcCrvAtXaSDAeYKlqTjvc4CPqQb1sU56phFSTreOen2nQbNdvD8WuV16SqX+iTohEb38WI4J6hjGrvYkI6qK/1htyH2Z9aQT/Dn8wMV5jnxJDAcbAAAAABJRU5ErkJggg%3D%3D',
+			iconUrl: '../assets/images/rotate-handle.png',
 			iconSize: [16, 16],
 			iconAnchor: [8, 8]}
 		)
@@ -571,7 +571,7 @@ var EditOverlayAction = LeafletToolbar.ToolbarAction.extend({
 
 	ToggleOutline = EditOverlayAction.extend({
 		options: { toolbarIcon: { 
-			html: '<span class="fa fa-square-o"></span>',
+			html: '<span class="far fa-square"></span>',
 			tooltip: 'Toggle Image Outline',
 			title: 'Toggle Image Outline'
 		}},
@@ -617,7 +617,7 @@ var EditOverlayAction = LeafletToolbar.ToolbarAction.extend({
 
 	ToggleRotateDistort = EditOverlayAction.extend({
 		initialize: function(map, overlay, options) {
-			var icon = overlay.editing._mode === 'rotate' ? 'image' : 'rotate-left';
+			var icon = overlay.editing._mode === 'rotate' ? 'redo' : 'redo';
 
 			options = options || {};
 			options.toolbarIcon = {
@@ -654,7 +654,7 @@ L.DistortableImage = L.DistortableImage || {};
 L.DistortableImage.Edit = L.Handler.extend({
 	options: {
 		opacity: 0.7,
-		outline: '1px solid red',
+		outline: '0 0 0 5px #FF00D2',
 		keymap: {
 			68: '_toggleRotateDistort', // d
 			73: '_toggleIsolate', // i
@@ -845,13 +845,13 @@ L.DistortableImage.Edit = L.Handler.extend({
 			opacity, outline;
 
 		this._outlined = !this._outlined;
-		opacity = this._outlined ? this.options.opacity / 2 : 1;
+		opacity = this._outlined ? 1 : 1;
 		outline = this._outlined ? this.options.outline : 'none';
 
 		L.DomUtil.setOpacity(image, opacity);
 		image.setAttribute('opacity', opacity);
 
-		image.style.outline = outline;
+		image.style.boxShadow = outline;
 	},
 
 	_toggleLock: function() {

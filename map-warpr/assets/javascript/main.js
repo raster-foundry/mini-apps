@@ -1,15 +1,32 @@
 $(document).ready(function () {
+    var $boringBtn = $("#boring-mode-button");
+    var isBoring = false;
+
     var map = L.map('map', {
-        center: [39.5, -98.35],
+        center: [35, -85],
         zoom: 5
     });
-    var tileLayer = new L.StamenTileLayer('terrain');
-    map.addLayer(tileLayer);
+    var satelliteBasemap = L.tileLayer(
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'}
+        );
+    var mapboxTerminal = L.tileLayer(
+        'https://api.mapbox.com/styles/v1/mwilliamsazavea/cjeu69bgh082r2rpndhj2o52b/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXdpbGxpYW1zYXphdmVhIiwiYSI6ImNpZ21oMmMzZzAyMmV1bmx6a20zbjllOHMifQ.JsUVaCRdxK16APj3-M1xDQ', {
+            attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'
+        });
+    var mapboxBoring = L.tileLayer(
+        'https://api.mapbox.com/styles/v1/mwilliamsazavea/cjgz7tv1r000d2sp075mvfldi/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXdpbGxpYW1zYXphdmVhIiwiYSI6ImNpZ21oMmMzZzAyMmV1bmx6a20zbjllOHMifQ.JsUVaCRdxK16APj3-M1xDQ', {
+            attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'
+        });
+    map.addLayer(mapboxTerminal);
 
     var file;
     var imageLayer;
     var layerGroup = L.layerGroup([]);
     layerGroup.addTo(map);
+
+    var $basemapButton = $('#basemap-switcher');
+    $basemapButton.click(switchBasemap);
 
     var $inputElement = $('#image-upload');
     $inputElement.on('change', handleFiles);
@@ -19,6 +36,62 @@ $(document).ready(function () {
 
     var $resetButton = $('#button-reset');
     $resetButton.click(clearMap);
+
+    var anchorIcon = L.icon({
+        iconUrl: './assets/images/warp-anchor.png',
+        iconSize: [16, 16],
+        iconAnchor: [8, 8],
+        className: 'anchor-point'
+    });
+
+    $boringBtn.click(toggleBoring);
+    function toggleBoring() {
+        if (!isBoring) {
+            $('body').addClass('boring-mode');
+            $('body').removeClass('awesome-mode');
+            $(this).html('Awesome mode')
+            
+            map.removeLayer(satelliteBasemap);
+            map.removeLayer(mapboxTerminal);
+            map.addLayer(mapboxBoring);
+            
+            isBoring = !isBoring;
+        } else {
+            $('body').addClass('awesome-mode');
+            $('body').removeClass('boring-mode');
+            $(this).html('Boring mode');
+
+            map.removeLayer(satelliteBasemap);
+            map.removeLayer(mapboxBoring);
+            map.addLayer(mapboxTerminal);
+            
+            isBoring = !isBoring;
+        }
+    }
+
+    function switchBasemap() {
+        if (isBoring) {
+            if ( map.hasLayer(mapboxBoring) ) {
+                map.removeLayer(mapboxBoring);
+                map.addLayer(satelliteBasemap);
+                $(this).html('Activate hybrid map');
+            } else {
+                map.removeLayer(satelliteBasemap);
+                map.addLayer(mapboxBoring);
+                $(this).html('Activate satellite map');
+            }
+        } else {
+            if ( map.hasLayer(mapboxTerminal) ) {
+                map.removeLayer(mapboxTerminal);
+                map.addLayer(satelliteBasemap);
+                $(this).html('Activate hybrid map');
+            } else {
+                map.removeLayer(satelliteBasemap);
+                map.addLayer(mapboxTerminal);
+                $(this).html('Activate satellite map');
+            }
+        }
+    }
 
     function handleFiles() {
         var files = this.files;
@@ -30,6 +103,13 @@ $(document).ready(function () {
         fileToImage(file).then(function(image) {
             setupImageLayer(image);
         });
+
+        $('.image-list').html(
+            '<li class="uploaded-image">' +
+            '<div class="image-name">' +
+            file.name +
+            '</div></li>'
+        );
     }
 
     function setEngageButtonState(isEnabled) {
@@ -95,7 +175,7 @@ $(document).ready(function () {
         controlPoints.map(function (gcp) {
             return gcp.getLatLng();
         }).forEach(function (point) {
-            layerGroup.addLayer(L.marker(point));
+            layerGroup.addLayer(L.marker(point, {icon: anchorIcon}));
         });
 
         var datasetOpen, datasetTranslate;
