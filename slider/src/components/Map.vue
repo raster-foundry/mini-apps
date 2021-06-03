@@ -199,7 +199,7 @@ export default {
       if (this.leftProject.length) {
         const tokenParam = this.leftToken && this.leftToken.length ?
             `?mapToken=${this.leftToken}` : '';
-        return `https://tiles.rasterfoundry.com/tiles/${this.leftProject}/{z}/{x}/{y}/${tokenParam}`;
+        return `https://tiles.rasterfoundry.com/${this.leftProject}/{z}/{x}/{y}/${tokenParam}`;
       }
       return '';
     },
@@ -207,7 +207,7 @@ export default {
       if (this.rightProject.length) {
         const tokenParam = this.rightToken && this.rightToken.length ?
             `?mapToken=${this.rightToken}` : '';
-        return `https://tiles.rasterfoundry.com/tiles/${this.rightProject}/{z}/{x}/{y}/${tokenParam}`;
+        return `https://tiles.rasterfoundry.com/${this.rightProject}/{z}/{x}/{y}/${tokenParam}`;
       }
       return '';
     },
